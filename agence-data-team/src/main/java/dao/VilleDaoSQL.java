@@ -10,131 +10,172 @@ import java.util.List;
 
 import model.Ville;
 
-public class VilleDaoSQL implements VilleDao {
+public class VilleDaoSQL implements VilleDao
+{
 
-	public VilleDaoSQL() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// 2. Créer la connexion à la base (on instancie l'objet connexion)
-		try {
-			connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "root", "");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    public VilleDaoSQL()
+    {
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+        }
+        catch (ClassNotFoundException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // 2. Crï¿½er la connexion ï¿½ la base (on instancie l'objet connexion)
+        try
+        {
+            connexion = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/vol", "root", "");
+        }
+        catch (SQLException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	private Connection connexion;
+    private Connection connexion;
 
-	public void fermetureConnexion() {
-		try {
-			connexion.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+    public void fermetureConnexion()
+    {
+        try
+        {
+            connexion.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
-	public List<Ville> findAll() {
-		// Liste des villes que l'on va retourner
-		List<Ville> villes = new ArrayList<Ville>();
-		// Connexion à la BDD
-		try {
-			/*
-			 * Connexion à la BDD
-			 */
-			PreparedStatement ps = connexion.prepareStatement("SELECT * FROM ville");
-			// 4. Execution de la requête
-			ResultSet tuple = ps.executeQuery();
-			// 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
-			// récupérer les valeutuple des colonnes du tuple qui correspondent
-			// aux
-			// valeur des attributs de l'objet
-			while (tuple.next()) {
-				// Creation d'un objet Ville
-				Ville ville = new Ville(tuple.getInt("id"), tuple.getString("nom"));
-				// Ajout du nouvel objet Ville créé à la liste des villes
-				villes.add(ville);
-			} // fin de la boucle de parcoutuple de l'ensemble des résultats
+    public List<Ville> findAll()
+    {
+        // Liste des villes que l'on va retourner
+        List<Ville> villes = new ArrayList<Ville>();
+        // Connexion ï¿½ la BDD
+        try
+        {
+            /*
+             * Connexion ï¿½ la BDD
+             */
+            PreparedStatement ps = connexion
+                    .prepareStatement("SELECT * FROM ville");
+            // 4. Execution de la requï¿½te
+            ResultSet tuple = ps.executeQuery();
+            // 5. Parcoutuple de l'ensemble des rï¿½sultats (ResultSet) pour
+            // rï¿½cupï¿½rer les valeutuple des colonnes du tuple qui correspondent
+            // aux
+            // valeur des attributs de l'objet
+            while (tuple.next())
+            {
+                // Creation d'un objet Ville
+                Ville ville = new Ville(tuple.getInt("id"),
+                        tuple.getString("nom"));
+                // Ajout du nouvel objet Ville crï¿½ï¿½ ï¿½ la liste des villes
+                villes.add(ville);
+            } // fin de la boucle de parcoutuple de l'ensemble des rï¿½sultats
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		// Retourne la liste de toutes les villes
-		return villes;
-	}
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        // Retourne la liste de toutes les villes
+        return villes;
+    }
 
-	public Ville findById(Integer id) {
-		// Déclaration d'un objet ville
-		Ville ville = null;
+    public Ville findById(Integer id)
+    {
+        // Dï¿½claration d'un objet ville
+        Ville ville = null;
 
-		try {
-			// Connexion à la BDD
-			PreparedStatement ps = connexion.prepareStatement("SELECT * FROM ville where id=?");
-			// Cherche l'idVill voulu dans la BDD
-			ps.setInt(1, id);
+        try
+        {
+            // Connexion ï¿½ la BDD
+            PreparedStatement ps = connexion
+                    .prepareStatement("SELECT * FROM ville where id=?");
+            // Cherche l'idVill voulu dans la BDD
+            ps.setInt(1, id);
 
-			// Récupération des résultats de la requête
-			ResultSet tuple = ps.executeQuery();
+            // Rï¿½cupï¿½ration des rï¿½sultats de la requï¿½te
+            ResultSet tuple = ps.executeQuery();
 
-			if (tuple.next()) {
-				ville = new Ville(tuple.getInt("id"), tuple.getString("nom"));
-			}
+            if (tuple.next())
+            {
+                ville = new Ville(tuple.getInt("id"), tuple.getString("nom"));
+            }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
 
-		return ville;
-	}
+        return ville;
+    }
 
-	public void create(Ville ville) {
+    public void create(Ville ville)
+    {
 
-		try {
+        try
+        {
 
-			PreparedStatement requete = connexion.prepareStatement("INSERT INTO ville (id, nom) VALUES(?,?)");
+            PreparedStatement requete = connexion.prepareStatement(
+                    "INSERT INTO ville (id, nom) VALUES(?,?)");
 
-			requete.setLong(1, ville.getIdVil());
-			requete.setString(2, ville.getNom());
+            requete.setLong(1, ville.getIdVil());
+            requete.setString(2, ville.getNom());
 
-			requete.executeUpdate();
+            requete.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
-	public Ville update(Ville ville) {
+    public Ville update(Ville ville)
+    {
 
-		try {
-			PreparedStatement ps = connexion.prepareStatement("UPDATE ville SET nom=? WHERE id = ?");
+        try
+        {
+            PreparedStatement ps = connexion
+                    .prepareStatement("UPDATE ville SET nom=? WHERE id = ?");
 
-			ps.setString(1, ville.getNom());
-			ps.setInt(2, ville.getIdVil());
+            ps.setString(1, ville.getNom());
+            ps.setInt(2, ville.getIdVil());
 
-			ps.executeUpdate();
+            ps.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
 
-		return ville;
-	}
+        return ville;
+    }
 
-	public void delete(Ville ville) {
+    public void delete(Ville ville)
+    {
 
-		try {
-			PreparedStatement ps = connexion.prepareStatement("delete from ville where id = ?");
-			ps.setLong(1, ville.getIdVil());
+        try
+        {
+            PreparedStatement ps = connexion
+                    .prepareStatement("delete from ville where id = ?");
+            ps.setLong(1, ville.getIdVil());
 
-			ps.executeUpdate();
+            ps.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 }

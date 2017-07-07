@@ -3,56 +3,56 @@ package dao;
 import java.util.List;
 
 /**
- * Contrat que tous les DAO vont devoir respecter. Il contient les opérations
+ * Contrat que tous les DAO vont devoir respecter. Il contient les opï¿½rations
  * CRUD de base
  * 
  * @author Eric Sultan
- *
  * @param <BO>
- *            L'objet métier générique
+ *            L'objet mï¿½tier gï¿½nï¿½rique
  * @param <PK>
- *            Le type de clé primaire générique
+ *            Le type de clï¿½ primaire gï¿½nï¿½rique
  */
-public interface Dao<BO, PK> {
+public interface Dao<BO, PK>
+{
 
-	/**
-	 * Retourne un objet métier en fonction de sa clé primaire
-	 * 
-	 * @param id
-	 *            Clé primaire
-	 * @return L'objet métier trouvé
-	 */
-	BO findById(PK id);
+    /**
+     * Retourne un objet mï¿½tier en fonction de sa clï¿½ primaire
+     * 
+     * @param id
+     *            Clï¿½ primaire
+     * @return L'objet mï¿½tier trouvï¿½
+     */
+    BO findById(PK id);
 
-	/**
-	 * Retourne tous les objets métiers d'un type donné de la source de données
-	 * 
-	 * @return La liste des objets métiers
-	 */
-	List<BO> findAll();
+    /**
+     * Retourne tous les objets mï¿½tiers d'un type donnï¿½ de la source de donnï¿½es
+     * 
+     * @return La liste des objets mï¿½tiers
+     */
+    List<BO> findAll();
 
-	/**
-	 * Crée un nouvel objet métier afin de le persister
-	 * 
-	 * @param obj
-	 *            L'objet à persister
-	 */
-	void create(BO obj);
+    /**
+     * Crï¿½e un nouvel objet mï¿½tier afin de le persister
+     * 
+     * @param obj
+     *            L'objet ï¿½ persister
+     */
+    void create(BO obj);
 
-	/**
-	 * Retourne un objet métier mis à jour
-	 * 
-	 * @param obj
-	 *            L'objet à mettre à jour
-	 * @return L'objet métier mis à jour
-	 */
-	BO update(BO obj);
+    /**
+     * Retourne un objet mï¿½tier mis ï¿½ jour
+     * 
+     * @param obj
+     *            L'objet ï¿½ mettre ï¿½ jour
+     * @return L'objet mï¿½tier mis ï¿½ jour
+     */
+    BO update(BO obj);
 
-	/**
-	 * Supprime un objet métier de la source de données
-	 * 
-	 * @param obj
-	 *            L'objet à supprimer
-	 */
-	void delete(BO obj);
+    /**
+     * Supprime un objet mï¿½tier de la source de donnï¿½es
+     * 
+     * @param obj
+     *            L'objet ï¿½ supprimer
+     */
+    void delete(BO obj);
 }
