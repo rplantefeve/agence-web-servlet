@@ -3,56 +3,56 @@ package dao;
 import java.util.List;
 
 /**
- * Contrat que tous les DAO vont devoir respecter. Il contient les op�rations
+ * Contrat que tous les DAO vont devoir respecter. Il contient les opérations
  * CRUD de base
  * 
  * @author Eric Sultan
  * @param <BO>
- *            L'objet m�tier g�n�rique
+ *            L'objet métier générique
  * @param <PK>
- *            Le type de cl� primaire g�n�rique
+ *            Le type de clé primaire générique
  */
 public interface Dao<BO, PK>
 {
 
     /**
-     * Retourne un objet m�tier en fonction de sa cl� primaire
+     * Retourne un objet métier en fonction de sa clé primaire
      * 
      * @param id
-     *            Cl� primaire
-     * @return L'objet m�tier trouv�
+     *            Clé primaire
+     * @return L'objet métier trouvé
      */
     BO findById(PK id);
 
     /**
-     * Retourne tous les objets m�tiers d'un type donn� de la source de donn�es
+     * Retourne tous les objets métiers d'un type donné de la source de données
      * 
-     * @return La liste des objets m�tiers
+     * @return La liste des objets métiers
      */
     List<BO> findAll();
 
     /**
-     * Cr�e un nouvel objet m�tier afin de le persister
+     * Crée un nouvel objet métier afin de le persister
      * 
      * @param obj
-     *            L'objet � persister
+     *            L'objet à persister
      */
     void create(BO obj);
 
     /**
-     * Retourne un objet m�tier mis � jour
+     * Retourne un objet métier mis à jour
      * 
      * @param obj
-     *            L'objet � mettre � jour
-     * @return L'objet m�tier mis � jour
+     *            L'objet à mettre à jour
+     * @return L'objet métier mis à jour
      */
     BO update(BO obj);
 
     /**
-     * Supprime un objet m�tier de la source de donn�es
+     * Supprime un objet métier de la source de données
      * 
      * @param obj
-     *            L'objet � supprimer
+     *            L'objet à supprimer
      */
     void delete(BO obj);
 }

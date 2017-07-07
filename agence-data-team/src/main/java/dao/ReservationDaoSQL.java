@@ -19,7 +19,7 @@ public class ReservationDaoSQL implements ReservationDao
     public ReservationDaoSQL()
     {
         /*
-         * Connexion � la BDD
+         * Connexion à la BDD
          */
         // 1. Chargement du driver
         try
@@ -31,11 +31,11 @@ public class ReservationDaoSQL implements ReservationDao
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // 2. Cr�er la connexion � la base (on instancie l'objet connexion)
+        // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
             connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "root", "");
+                    "jdbc:mysql://localhost:3306/vol", "user", "password");
         }
         catch (SQLException e)
         {
@@ -58,7 +58,7 @@ public class ReservationDaoSQL implements ReservationDao
 
     public List<Reservation> findAll()
     {
-        // Liste des r�servations que l'on va retourner
+        // Liste des réservations que l'on va retourner
         List<Reservation> reservations = new ArrayList<Reservation>();
         PassagerDaoSQL passagerDAO = new PassagerDaoSQL();
         ClientDaoSql clientDAO = new ClientDaoSql();
@@ -67,10 +67,10 @@ public class ReservationDaoSQL implements ReservationDao
         {
             PreparedStatement ps = connexion
                     .prepareStatement("SELECT * FROM Reservation");
-            // 4. Execution de la requ�te
+            // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
-            // 5. Parcoutuple de l'ensemble des r�sultats (ResultSet) pour
-            // r�cup�rer les valeutuple des colonnes du tuple qui correspondent
+            // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
+            // récupérer les valeutuple des colonnes du tuple qui correspondent
             // aux
             // valeur des attributs de l'objet
             while (tuple.next())
@@ -88,11 +88,11 @@ public class ReservationDaoSQL implements ReservationDao
                         passagerDAO.findById(tuple.getInt("idPassager")));
                 reservation.setClient(
                         clientDAO.findById(tuple.getInt("idClient")));
-                // Ajout du nouvel objet r�servation cr�� � la liste des
-                // r�servations
+                // Ajout du nouvel objet réservation créé à la liste des
+                // réservations
                 reservations.add(reservation);
-            } // fin de la boucle de parcours de l'ensemble des r�sultats
-              // insertion de l'objet vol dans r�servation
+            } // fin de la boucle de parcours de l'ensemble des résultats
+              // insertion de l'objet vol dans réservation
 
             volDAO.fermetureConnexion();
             clientDAO.fermetureConnexion();
@@ -103,13 +103,13 @@ public class ReservationDaoSQL implements ReservationDao
         {
             e.printStackTrace();
         }
-        // Retourne la liste de toutes les r�servations
+        // Retourne la liste de toutes les réservations
         return reservations;
     }
 
     public Reservation findById(Integer idRes)
     {
-        // D�claration d'un objet reservation
+        // Déclaration d'un objet reservation
         Reservation reservation = null;
         PassagerDaoSQL passagerDAO = new PassagerDaoSQL();
         ClientDaoSql clientDAO = new ClientDaoSql();
@@ -119,10 +119,10 @@ public class ReservationDaoSQL implements ReservationDao
         {
             PreparedStatement ps = connexion.prepareStatement(
                     "SELECT * FROM reservation where idResa=?");
-            // Cherche l'idResa recherch� dans la BDD
+            // Cherche l'idResa recherché dans la BDD
             ps.setInt(1, idRes);
 
-            // R�cup�ration des r�sultats de la requ�te
+            // Récupération des résultats de la requête
             ResultSet tuple = ps.executeQuery();
 
             if (tuple.next())

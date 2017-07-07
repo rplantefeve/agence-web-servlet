@@ -51,7 +51,7 @@ public class VilleAeroport
     public String toString()
     {
         String reponse = "La Ville : " + ville.getNom()
-                + " est desservie par l'a�roport : " + aeroport.getNom() + ".";
+                + " est desservie par l'aéroport : " + aeroport.getNom() + ".";
 
         return reponse;
     }

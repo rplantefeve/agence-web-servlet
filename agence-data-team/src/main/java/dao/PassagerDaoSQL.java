@@ -18,7 +18,7 @@ public class PassagerDaoSQL implements PassagerDao
     public PassagerDaoSQL()
     {
         /*
-         * Connexion � la BDD
+         * Connexion à la BDD
          */
         // 1. Chargement du driver
         try
@@ -30,11 +30,11 @@ public class PassagerDaoSQL implements PassagerDao
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // 2. Cr�er la connexion � la base (on instancie l'objet connexion)
+        // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
             connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "root", "");
+                    "jdbc:mysql://localhost:3306/vol", "user", "password");
         }
         catch (SQLException e)
         {
@@ -64,10 +64,10 @@ public class PassagerDaoSQL implements PassagerDao
         {
             PreparedStatement ps = connexion
                     .prepareStatement("SELECT * FROM Passager");
-            // 4. Execution de la requ�te
+            // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
-            // 5. Parcoutuple de l'ensemble des r�sultats (ResultSet) pour
-            // r�cup�rer les valeutuple des colonnes du tuple qui correspondent
+            // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
+            // récupérer les valeutuple des colonnes du tuple qui correspondent
             // aux
             // valeur des attributs de l'objet
             while (tuple.next())
@@ -78,10 +78,10 @@ public class PassagerDaoSQL implements PassagerDao
                 passager.setNom(tuple.getString("nom"));
                 passager.setPrenom(tuple.getString("prenom"));
                 passager.setAdresse(adresseDAO.findById(tuple.getInt("idAdd")));
-                // Ajout du nouvel objet r�servation cr�� � la liste des
+                // Ajout du nouvel objet réservation créé à la liste des
                 // passagers
                 passagers.add(passager);
-            } // fin de la boucle de parcours de l'ensemble des r�sultats
+            } // fin de la boucle de parcours de l'ensemble des résultats
             adresseDAO.fermetureConnexion();
 
         }
@@ -89,13 +89,13 @@ public class PassagerDaoSQL implements PassagerDao
         {
             e.printStackTrace();
         }
-        // Retourne la liste de toutes les r�servations
+        // Retourne la liste de toutes les réservations
         return passagers;
     }
 
     public Passager findById(Integer idPas)
     {
-        // D�claration d'un objet reservation
+        // Déclaration d'un objet reservation
         Passager passager = null;
         AdresseDaoSql adresseDAO = new AdresseDaoSql();
 
@@ -103,10 +103,10 @@ public class PassagerDaoSQL implements PassagerDao
         {
             PreparedStatement ps = connexion.prepareStatement(
                     "SELECT * FROM passager where idPassager=?");
-            // Cherche l'idPas recherch� dans la BDD
+            // Cherche l'idPas recherché dans la BDD
             ps.setInt(1, idPas);
 
-            // R�cup�ration des r�sultats de la requ�te
+            // Récupération des résultats de la requête
             ResultSet tuple = ps.executeQuery();
 
             if (tuple.next())

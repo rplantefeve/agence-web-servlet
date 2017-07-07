@@ -6,19 +6,19 @@ public class Reservation
 {
 
     /**
-     * Id de la r�servation
+     * Id de la réservation
      */
     private int idRes;
     /**
-     * Date de la r�servation
+     * Date de la réservation
      */
     private Date date;
     /**
-     * Num�ro de la r�servation
+     * Numéro de la réservation
      */
     private int numero;
     /**
-     * Etat de la r�servation (ouvert ou ferm�)
+     * Etat de la réservation (ouvert ou fermé)
      */
     private EtatReservation etat;
     /**
@@ -35,7 +35,7 @@ public class Reservation
     private int idCli;
 
     /**
-     * Vol associ� � la r�servation
+     * Vol associé à la réservation
      */
     private Vol vol;
     private Passager passager;
@@ -149,9 +149,9 @@ public class Reservation
     public String toString()
     {
         String reponse = "La Reservation : " + this.numero
-                + " a �t� effectu�e par le Client : \n" + client.getNom() + " "
+                + " a été effectuée par le Client : \n" + client.getNom() + " "
                 + client.getPrenom() + "\nElle porte sur le vol de "
-                + vol.getAeroportDepart().getNom() + " � "
+                + vol.getAeroportDepart().getNom() + " à "
                 + vol.getAeroportArrivee().getNom()
                 + ".\nElle concerne le passager :\n" + passager.getNom() + " "
                 + passager.getPrenom();

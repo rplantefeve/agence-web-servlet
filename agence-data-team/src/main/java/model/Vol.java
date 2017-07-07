@@ -16,19 +16,19 @@ public class Vol
      */
     private int idVol;
     /**
-     * date de d�part du vol
+     * date de départ du vol
      */
     private Date dateDepart;
     /**
-     * date d'arriv� du vol
+     * date d'arrivé du vol
      */
     private Date dateArrivee;
     /**
-     * heure d�part du vol
+     * heure départ du vol
      */
     private Time heureDepart;
     /**
-     * heure d'arriv�e du vol
+     * heure d'arrivée du vol
      */
     private Time heureArrivee;
     private Aeroport aeroportDepart;
@@ -133,15 +133,15 @@ public class Vol
     public String toString()
     {
         String reponse = "Le vol  de : " + this.aeroportDepart.getNom()
-                + " qui part le " + this.dateDepart + " � " + this.heureDepart
-                + "\n Arrivera � " + this.aeroportArrivee.getNom() + " � "
-                + this.heureArrivee + "\nIl fera des escales � : ";
+                + " qui part le " + this.dateDepart + " à " + this.heureDepart
+                + "\n Arrivera à " + this.aeroportArrivee.getNom() + " à "
+                + this.heureArrivee + "\nIl fera des escales à : ";
         for (int i = 0; i < escales.size(); i++)
         {
             reponse += "\n" + this.escales.get(i).getAeoroport().getNom()
-                    + " le " + this.escales.get(i).getDateArrivee() + " � "
+                    + " le " + this.escales.get(i).getDateArrivee() + " à "
                     + this.escales.get(i).getHeureArrivee() + "jusqu'au"
-                    + this.escales.get(i).getDateDepart() + " � "
+                    + this.escales.get(i).getDateDepart() + " à "
                     + this.escales.get(i).getHeureDepart();
         }
 

@@ -142,7 +142,7 @@ public class Client
     public String toString()
     {
         String reponse = "Le Client : " + this.nom + " " + this.prenom + " "
-                + getNumeroTel() + " a effectu� la/les reservation(s) : \n";
+                + getNumeroTel() + " a effectué la/les reservation(s) : \n";
         for (int i = 0; i < ListReservations.size(); i++)
         {
             reponse += "\n" + this.ListReservations.get(i).getNumero();

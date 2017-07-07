@@ -34,7 +34,7 @@ public class VolDaoSql implements VolDao
         try
         {
             connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "root", "");
+                    "jdbc:mysql://localhost:3306/vol", "user", "password");
         }
         catch (SQLException e)
         {

@@ -4,12 +4,12 @@ public class CompagnieAerienne
 {
 
     /**
-     * Id de la compagnie a�rienne
+     * Id de la compagnie aérienne
      */
     private int id;
 
     /**
-     * Nom de la compagnie a�rienne
+     * Nom de la compagnie aérienne
      */
     private String nom;
 

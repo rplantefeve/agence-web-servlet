@@ -35,6 +35,10 @@ public class Passager
 
     }
 
+    public Passager()
+    {
+    }
+
     public int getIdPas()
     {
         return idPas;

@@ -7,16 +7,16 @@ public class Aeroport
 {
 
     /**
-     * id de l'a�roport
+     * id de l'aéroport
      */
     private int idAer;
     /**
-     * Nom de l'a�roport
+     * Nom de l'aéroport
      */
     private String nom;
 
     /**
-     * Liste des villes d�sservies par l'a�roport
+     * Liste des villes désservies par l'aéroport
      */
     private List<Ville> villes = new ArrayList<Ville>();
 
@@ -27,15 +27,15 @@ public class Aeroport
     }
 
     /**
-     * Ajout d'une ville existante � la liste des villes desservies par
-     * l'a�roport
+     * Ajout d'une ville existante à la liste des villes desservies par
+     * l'aéroport
      * 
      * @param ville
-     *            Ville � ajouter
+     *            Ville à ajouter
      */
     public void ajouterVille(Ville ville)
     {
-        this.villes.add(ville); // ajout d'une ville d�j� existante
+        this.villes.add(ville); // ajout d'une ville déjà existante
     }
 
     public int getIdAer()

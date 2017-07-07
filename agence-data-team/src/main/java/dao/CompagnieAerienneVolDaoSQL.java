@@ -23,11 +23,11 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // 2. Cr�er la connexion � la base (on instancie l'objet connexion)
+        // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
             connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "root", "");
+                    "jdbc:mysql://localhost:3306/vol", "user", "password");
         }
         catch (SQLException e)
         {
@@ -56,18 +56,18 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
         List<CompagnieAerienneVol> compagnieaeriennevols = new ArrayList<CompagnieAerienneVol>();
         VolDaoSql volDAO = new VolDaoSql();
         CompagnieAerienneDaoSQL compagnieDAO = new CompagnieAerienneDaoSQL();
-        // Connexion � la BDD
+        // Connexion à la BDD
         try
         {
             /*
-             * Connexion � la BDD
+             * Connexion à la BDD
              */
             PreparedStatement ps = connexion
                     .prepareStatement("SELECT * FROM compagnie_aerienne_vol");
-            // 4. Execution de la requ�te
+            // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
-            // 5. Parcours de l'ensemble des r�sultats (ResultSet) pour
-            // r�cup�rer les valeurs des colonnes du tuple qui correspondent aux
+            // 5. Parcours de l'ensemble des résultats (ResultSet) pour
+            // récupérer les valeurs des colonnes du tuple qui correspondent aux
             // valeur des attributs de l'objet
             while (tuple.next())
             {
@@ -79,9 +79,9 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
                         compagnieDAO.findById(tuple.getInt("idCompagnie")));
                 compagnieaeriennevol
                         .setVol(volDAO.findById(tuple.getInt("idVol")));
-                // Ajout du nouvel objet Aeroport cr�� � la liste des �l�ves
+                // Ajout du nouvel objet Aeroport créé à la liste des élèves
                 compagnieaeriennevols.add(compagnieaeriennevol);
-            } // fin de la boucle de parcours de l'ensemble des r�sultats
+            } // fin de la boucle de parcours de l'ensemble des résultats
 
             volDAO.fermetureConnexion();
             compagnieDAO.fermetureConnexion();
@@ -91,7 +91,7 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
         {
             e.printStackTrace();
         }
-        // Retourne la liste de tous les a�roports
+        // Retourne la liste de tous les aéroports
         return compagnieaeriennevols;
     }
 
@@ -105,10 +105,10 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
 
             PreparedStatement ps = connexion.prepareStatement(
                     "SELECT * FROM compagnie_aerienne_vol where id=?");
-            // Cherche l'idComp recherch� dans la BDD
+            // Cherche l'idComp recherché dans la BDD
             ps.setInt(1, id);
 
-            // R�cup�ration des r�sultats de la requ�te
+            // Récupération des résultats de la requête
             ResultSet tuple = ps.executeQuery();
 
             if (tuple.next())
@@ -141,7 +141,7 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
             PreparedStatement requete;
             requete = connexion.prepareStatement(
                     "INSERT INTO compagnie_aerienne_vol (id, numero, idCompagnie, idVol, ouvert) VALUES(?,?,?,?,?)");
-            // set sur le param�tre 1
+            // set sur le paramètre 1
             requete.setInt(1, compagnieAerienneVol.getId());
             requete.setString(2, compagnieAerienneVol.getNumero());
             requete.setLong(3,
