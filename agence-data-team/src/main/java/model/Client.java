@@ -12,20 +12,20 @@ import java.util.List;
 public class Client
 {
 
+    private Adresse           adresse;
+    private String            email;
     /**
      * 
      */
-    private int idCli;
-    private String nom;
-    private String numeroTel;
-    private String numeroFax;
-    private String email;
-    private String prenom;
-    private int siret;
-
+    private int               idCli;
     private List<Reservation> ListReservations;
-    private Adresse adresse;
-    private Login Log;
+    private Login             Log;
+    private String            nom;
+    private String            numeroFax;
+
+    private String            numeroTel;
+    private String            prenom;
+    private String            siret;
 
     public Client()
     {
@@ -41,52 +41,52 @@ public class Client
 
     public Adresse getAdresse()
     {
-        return adresse;
+        return this.adresse;
     }
 
     public String getEmail()
     {
-        return email;
+        return this.email;
     }
 
     public int getIdCli()
     {
-        return idCli;
+        return this.idCli;
     }
 
     public List<Reservation> getListReservations()
     {
-        return ListReservations;
+        return this.ListReservations;
     }
 
     public Login getLog()
     {
-        return Log;
+        return this.Log;
     }
 
     public String getNom()
     {
-        return nom;
+        return this.nom;
     }
 
     public String getNumeroFax()
     {
-        return numeroFax;
+        return this.numeroFax;
     }
 
     public String getNumeroTel()
     {
-        return numeroTel;
+        return this.numeroTel;
     }
 
     public String getPrenom()
     {
-        return prenom;
+        return this.prenom;
     }
 
-    public int getSiret()
+    public String getSiret()
     {
-        return siret;
+        return this.siret;
     }
 
     public void setAdresse(Adresse adresse)
@@ -106,12 +106,12 @@ public class Client
 
     public void setListReservations(List<Reservation> listReservations)
     {
-        ListReservations = listReservations;
+        this.ListReservations = listReservations;
     }
 
     public void setLog(Login log)
     {
-        Log = log;
+        this.Log = log;
     }
 
     public void setNom(String nom)
@@ -134,16 +134,17 @@ public class Client
         this.prenom = prenom;
     }
 
-    public void setSiret(int siret)
+    public void setSiret(String siret)
     {
         this.siret = siret;
     }
 
+    @Override
     public String toString()
     {
-        String reponse = "Le Client : " + this.nom + " " + this.prenom + " "
-                + getNumeroTel() + " a effectué la/les reservation(s) : \n";
-        for (int i = 0; i < ListReservations.size(); i++)
+        String reponse = "Le Client : " + this.nom + " " + this.prenom + " " + this.getNumeroTel()
+                + " a effectué la/les reservation(s) : \n";
+        for (int i = 0; i < this.ListReservations.size(); i++)
         {
             reponse += "\n" + this.ListReservations.get(i).getNumero();
         }

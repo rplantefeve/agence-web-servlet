@@ -28,8 +28,56 @@ public class ClientDaoSql implements ClientDao
         // 2. Cr�er la connexion � la base (on instancie l'objet connexion)
         try
         {
-            connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "user", "password");
+            this.connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "user",
+                    "password");
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void create(Client client)
+    {
+
+        try
+        {
+
+            PreparedStatement requete = this.connexion.prepareStatement(
+                    "INSERT INTO client (idClient, nom, prenom, numTel, numFax, eMail, siret, idAdd) VALUES(?,?,?,?,?,?,?,?)");
+
+            requete.setLong(1, client.getIdCli());
+            requete.setString(2, client.getNom());
+            requete.setString(3, client.getPrenom());
+            requete.setString(4, client.getNumeroTel());
+            requete.setString(5, client.getNumeroFax());
+            requete.setString(6, client.getEmail());
+            requete.setString(7, client.getSiret());
+            requete.setLong(8, client.getAdresse().getIdAdd());
+
+            requete.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(Client client)
+    {
+
+        try
+        {
+
+            PreparedStatement ps = this.connexion
+                    .prepareStatement("DELETE FROM client WHERE idCLient = ?");
+            ps.setLong(1, client.getIdCli());
+
+            ps.executeUpdate();
+
         }
         catch (SQLException e)
         {
@@ -41,7 +89,7 @@ public class ClientDaoSql implements ClientDao
     {
         try
         {
-            connexion.close();
+            this.connexion.close();
         }
         catch (SQLException e)
         {
@@ -53,7 +101,7 @@ public class ClientDaoSql implements ClientDao
     public List<Client> findAll()
     {
         // Liste des clients que l'on va retourner
-        List<Client> ListClients = new ArrayList<Client>();
+        List<Client> ListClients = new ArrayList<>();
         AdresseDaoSql adresseDAO = new AdresseDaoSql();
         LoginDaoSql loginDAO = new LoginDaoSql();
 
@@ -63,8 +111,7 @@ public class ClientDaoSql implements ClientDao
             /*
              * Connexion � la BDD
              */
-            PreparedStatement ps = connexion
-                    .prepareStatement("SELECT * FROM client");
+            PreparedStatement ps = this.connexion.prepareStatement("SELECT * FROM client");
 
             // 4. Execution de la requ�te
             ResultSet tuple = ps.executeQuery();
@@ -82,10 +129,9 @@ public class ClientDaoSql implements ClientDao
                 objClient.setNumeroTel(tuple.getString("numTel"));
                 objClient.setNumeroFax(tuple.getString("numFax"));
                 objClient.setEmail(tuple.getString("eMail"));
-                objClient.setSiret(tuple.getInt("siret"));
+                objClient.setSiret(tuple.getString("siret"));
 
-                objClient
-                        .setAdresse(adresseDAO.findById(tuple.getInt("idAdd")));
+                objClient.setAdresse(adresseDAO.findById(tuple.getInt("idAdd")));
                 objClient.setLog(loginDAO.findById(tuple.getInt("idLog")));
 
                 // for (int i=0; i< ListClients.size(); i++)
@@ -124,7 +170,7 @@ public class ClientDaoSql implements ClientDao
         try
         {
             // Connexion � la BDD
-            PreparedStatement ps = connexion
+            PreparedStatement ps = this.connexion
                     .prepareStatement("SELECT * FROM client WHERE idClient=?");
             // Cherche l'idVill voulu dans la BDD
             ps.setInt(1, idCli);
@@ -140,10 +186,9 @@ public class ClientDaoSql implements ClientDao
                 objClient.setNumeroTel(tuple.getString("numTel"));
                 objClient.setNumeroFax(tuple.getString("numFax"));
                 objClient.setEmail(tuple.getString("eMail"));
-                objClient.setSiret(tuple.getInt("siret"));
+                objClient.setSiret(tuple.getString("siret"));
 
-                objClient
-                        .setAdresse(adresseDAO.findById(tuple.getInt("idAdd")));
+                objClient.setAdresse(adresseDAO.findById(tuple.getInt("idAdd")));
                 adresseDAO.fermetureConnexion();
                 objClient.setLog(loginDAO.findById(tuple.getInt("idLog")));
                 loginDAO.fermetureConnexion();
@@ -158,40 +203,14 @@ public class ClientDaoSql implements ClientDao
         return objClient;
     }
 
-    public void create(Client client)
-    {
-
-        try
-        {
-
-            PreparedStatement requete = connexion.prepareStatement(
-                    "INSERT INTO client (idClient, nom, prenom, numTel, numFax, eMail, siret, idAdd) VALUES(?,?,?,?,?,?,?,?)");
-
-            requete.setLong(1, client.getIdCli());
-            requete.setString(2, client.getNom());
-            requete.setString(3, client.getPrenom());
-            requete.setString(4, client.getNumeroTel());
-            requete.setString(5, client.getNumeroFax());
-            requete.setString(6, client.getEmail());
-            requete.setInt(7, client.getSiret());
-            requete.setLong(8, client.getAdresse().getIdAdd());
-
-            requete.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
+    @Override
     public Client update(Client client)
     {
 
         try
         {
 
-            PreparedStatement requete = connexion.prepareStatement(
+            PreparedStatement requete = this.connexion.prepareStatement(
                     "UPDATE client SET nom=?,prenom=?, numTel=?, numFax=?, eMail=?, siret=?, idAdd=? WHERE idClient = ?");
 
             requete.setString(1, client.getNom());
@@ -199,7 +218,7 @@ public class ClientDaoSql implements ClientDao
             requete.setString(3, client.getNumeroTel());
             requete.setString(4, client.getNumeroFax());
             requete.setString(5, client.getEmail());
-            requete.setInt(6, client.getSiret());
+            requete.setString(6, client.getSiret());
             requete.setLong(7, client.getAdresse().getIdAdd());
             requete.setLong(8, client.getIdCli());
 
@@ -212,25 +231,6 @@ public class ClientDaoSql implements ClientDao
         }
 
         return client;
-    }
-
-    public void delete(Client client)
-    {
-
-        try
-        {
-
-            PreparedStatement ps = connexion
-                    .prepareStatement("DELETE FROM client WHERE idCLient = ?");
-            ps.setLong(1, client.getIdCli());
-
-            ps.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
     }
 
 }
