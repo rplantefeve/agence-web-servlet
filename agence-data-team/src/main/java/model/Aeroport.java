@@ -9,11 +9,11 @@ public class Aeroport
     /**
      * id de l'aéroport
      */
-    private int idAer;
+    private int         idAer;
     /**
      * Nom de l'aéroport
      */
-    private String nom;
+    private String      nom;
 
     /**
      * Liste des villes désservies par l'aéroport
@@ -84,8 +84,7 @@ public class Aeroport
     @Override
     public String toString()
     {
-        return "Aeroport [idAer=" + idAer + ", nom=" + nom + ", villes="
-                + villes + "]";
+        return "Aeroport [idAer=" + idAer + ", nom=" + nom + ", villes=" + villes + "]";
     }
 
 }

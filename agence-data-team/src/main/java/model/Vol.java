@@ -14,25 +14,25 @@ public class Vol
     /**
      * id du vol
      */
-    private int idVol;
+    private int          idVol;
     /**
      * date de départ du vol
      */
-    private Date dateDepart;
+    private Date         dateDepart;
     /**
      * date d'arrivé du vol
      */
-    private Date dateArrivee;
+    private Date         dateArrivee;
     /**
      * heure départ du vol
      */
-    private Time heureDepart;
+    private Time         heureDepart;
     /**
      * heure d'arrivée du vol
      */
-    private Time heureArrivee;
-    private Aeroport aeroportDepart;
-    private Aeroport aeroportArrivee;
+    private Time         heureArrivee;
+    private Aeroport     aeroportDepart;
+    private Aeroport     aeroportArrivee;
     /**
      * liste d'escales par lesquelles on peut passer
      */
@@ -140,14 +140,14 @@ public class Vol
 
     public String toString()
     {
-        String reponse = "Le vol  de : " + this.aeroportDepart.getNom()
-                + " qui part le " + this.dateDepart + " à " + this.heureDepart
-                + "\n Arrivera à " + this.aeroportArrivee.getNom() + " à "
-                + this.heureArrivee + "\nIl fera des escales à : ";
+        String reponse = "Le vol  de : " + this.aeroportDepart.getNom() + " qui part le "
+                + this.dateDepart + " à " + this.heureDepart + "\n Arrivera à "
+                + this.aeroportArrivee.getNom() + " à " + this.heureArrivee
+                + "\nIl fera des escales à : ";
         for (int i = 0; i < escales.size(); i++)
         {
-            reponse += "\n" + this.escales.get(i).getAeoroport().getNom()
-                    + " le " + this.escales.get(i).getDateArrivee() + " à "
+            reponse += "\n" + this.escales.get(i).getAeoroport().getNom() + " le "
+                    + this.escales.get(i).getDateArrivee() + " à "
                     + this.escales.get(i).getHeureArrivee() + "jusqu'au"
                     + this.escales.get(i).getDateDepart() + " à "
                     + this.escales.get(i).getHeureDepart();

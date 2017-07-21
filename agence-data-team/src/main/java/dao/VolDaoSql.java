@@ -33,8 +33,8 @@ public class VolDaoSql implements VolDao
         // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
-            connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "user", "password");
+            connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "user",
+                    "password");
         }
         catch (SQLException e)
         {
@@ -66,8 +66,7 @@ public class VolDaoSql implements VolDao
         try
         {
 
-            PreparedStatement ps = connexion
-                    .prepareStatement("SELECT * FROM vol");
+            PreparedStatement ps = connexion.prepareStatement("SELECT * FROM vol");
             // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
             // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
@@ -82,10 +81,8 @@ public class VolDaoSql implements VolDao
                 vol.setDateDepart(tuple.getDate("dateDepart"));
                 vol.setHeureArrivee(tuple.getTime("heureArrivee"));
                 vol.setHeureDepart(tuple.getTime("heureDepart"));
-                vol.setAeroportArrivee(aeroportDAO
-                        .findById(tuple.getInt("idAeroportArrivee")));
-                vol.setAeroportDepart(
-                        aeroportDAO.findById(tuple.getInt("idAeroportDepart")));
+                vol.setAeroportArrivee(aeroportDAO.findById(tuple.getInt("idAeroportArrivee")));
+                vol.setAeroportDepart(aeroportDAO.findById(tuple.getInt("idAeroportDepart")));
                 // Ajout du nouvel objet vol créé à la liste des vols
                 vols.add(vol);
             } // fin de la boucle de parcoutuple de l'ensemble des résultats
@@ -127,10 +124,8 @@ public class VolDaoSql implements VolDao
                 vol.setDateDepart(tuple.getDate("dateDepart"));
                 vol.setHeureArrivee(tuple.getTime("heureArrivee"));
                 vol.setHeureDepart(tuple.getTime("heureDepart"));
-                vol.setAeroportArrivee(aeroportDAO
-                        .findById(tuple.getInt("idAeroportArrivee")));
-                vol.setAeroportDepart(
-                        aeroportDAO.findById(tuple.getInt("idAeroportDepart")));
+                vol.setAeroportArrivee(aeroportDAO.findById(tuple.getInt("idAeroportArrivee")));
+                vol.setAeroportDepart(aeroportDAO.findById(tuple.getInt("idAeroportDepart")));
                 // fermeture de la base aeroport
                 aeroportDAO.fermetureConnexion();
             }
@@ -154,14 +149,10 @@ public class VolDaoSql implements VolDao
                     "INSERT INTO vol (idVol, dateDepart, dateArrivee, heureDepart, heureArrivee, idAeroportDepart, idAeroportArrivee) VALUES(?,?,?,?,?,?,?)");
 
             requete.setLong(1, vol.getIdVol());
-            requete.setDate(2,
-                    new java.sql.Date(vol.getDateDepart().getTime()));
-            requete.setDate(3,
-                    new java.sql.Date(vol.getDateArrivee().getTime()));
-            requete.setTime(4,
-                    new java.sql.Time(vol.getHeureDepart().getTime()));
-            requete.setTime(5,
-                    new java.sql.Time(vol.getHeureArrivee().getTime()));
+            requete.setDate(2, new java.sql.Date(vol.getDateDepart().getTime()));
+            requete.setDate(3, new java.sql.Date(vol.getDateArrivee().getTime()));
+            requete.setTime(4, new java.sql.Time(vol.getHeureDepart().getTime()));
+            requete.setTime(5, new java.sql.Time(vol.getHeureArrivee().getTime()));
             requete.setLong(6, vol.getAeroportDepart().getIdAer());
             requete.setLong(7, vol.getAeroportArrivee().getIdAer());
 
@@ -206,8 +197,7 @@ public class VolDaoSql implements VolDao
 
         try
         {
-            PreparedStatement ps = connexion
-                    .prepareStatement("delete from vol where idVol = ?");
+            PreparedStatement ps = connexion.prepareStatement("delete from vol where idVol = ?");
             ps.setLong(1, vol.getIdVol());
 
             ps.executeUpdate();

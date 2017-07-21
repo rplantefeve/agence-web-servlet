@@ -6,7 +6,7 @@ public class Ville
     /**
      * Id de la ville
      */
-    private int idVil;
+    private int    idVil;
 
     /**
      * Nom de la ville

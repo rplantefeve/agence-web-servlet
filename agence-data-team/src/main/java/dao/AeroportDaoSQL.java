@@ -30,8 +30,8 @@ public class AeroportDaoSQL implements AeroportDao
         // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
-            connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "user", "password");
+            connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "user",
+                    "password");
         }
         catch (SQLException e)
         {
@@ -65,8 +65,7 @@ public class AeroportDaoSQL implements AeroportDao
              * Connexion à la BDD
              */
 
-            PreparedStatement ps = connexion
-                    .prepareStatement("SELECT * FROM aeroport");
+            PreparedStatement ps = connexion.prepareStatement("SELECT * FROM aeroport");
             // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
             // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
@@ -76,8 +75,7 @@ public class AeroportDaoSQL implements AeroportDao
             while (tuple.next())
             {
                 // Creation d'un objet Aeroport
-                Aeroport aeroport = new Aeroport(tuple.getInt("idAero"),
-                        tuple.getString("nom"));
+                Aeroport aeroport = new Aeroport(tuple.getInt("idAero"), tuple.getString("nom"));
                 // Ajout du nouvel objet Aeroport créé à la liste des aéroports
                 aeroports.add(aeroport);
             } // fin de la boucle de parcoutuple de l'ensemble des résultats
@@ -107,8 +105,7 @@ public class AeroportDaoSQL implements AeroportDao
 
             if (tuple.next())
             {
-                aeroport = new Aeroport(tuple.getInt("idAero"),
-                        tuple.getString("nom"));
+                aeroport = new Aeroport(tuple.getInt("idAero"), tuple.getString("nom"));
             }
 
         }
@@ -126,8 +123,8 @@ public class AeroportDaoSQL implements AeroportDao
 
         try
         {
-            PreparedStatement requete = connexion.prepareStatement(
-                    "INSERT INTO aeroport (idAero, nom) VALUES(?,?)");
+            PreparedStatement requete = connexion
+                    .prepareStatement("INSERT INTO aeroport (idAero, nom) VALUES(?,?)");
 
             requete.setInt(1, aeroport.getIdAer());
             requete.setString(2, aeroport.getNom());
@@ -146,8 +143,8 @@ public class AeroportDaoSQL implements AeroportDao
 
         try
         {
-            PreparedStatement ps = connexion.prepareStatement(
-                    "UPDATE aeroport SET nom=? WHERE idAero = ?");
+            PreparedStatement ps = connexion
+                    .prepareStatement("UPDATE aeroport SET nom=? WHERE idAero = ?");
 
             ps.setString(1, aeroport.getNom());
             ps.setInt(2, aeroport.getIdAer());

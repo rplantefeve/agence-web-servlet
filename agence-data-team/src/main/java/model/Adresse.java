@@ -14,7 +14,7 @@ public class Adresse
     private String codePostal;
     private String ville;
     private String pays;
-    private int idAdd;
+    private int    idAdd;
 
     public Adresse()
     {
@@ -80,8 +80,8 @@ public class Adresse
     @Override
     public String toString()
     {
-        return "Adresse [adresse=" + adresse + ", codePostal=" + codePostal
-                + ", ville=" + ville + ", pays=" + pays + "]";
+        return "Adresse [adresse=" + adresse + ", codePostal=" + codePostal + ", ville=" + ville
+                + ", pays=" + pays + "]";
     }
 
 }

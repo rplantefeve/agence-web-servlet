@@ -3,8 +3,8 @@ package model;
 public class VilleAeroport
 {
 
-    private int id;
-    private Ville ville;
+    private int      id;
+    private Ville    ville;
     private Aeroport aeroport;
 
     public VilleAeroport()
@@ -50,8 +50,8 @@ public class VilleAeroport
 
     public String toString()
     {
-        String reponse = "La Ville : " + ville.getNom()
-                + " est desservie par l'aéroport : " + aeroport.getNom() + ".";
+        String reponse = "La Ville : " + ville.getNom() + " est desservie par l'aéroport : "
+                + aeroport.getNom() + ".";
 
         return reponse;
     }

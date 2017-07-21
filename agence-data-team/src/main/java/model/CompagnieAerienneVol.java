@@ -3,12 +3,12 @@ package model;
 public class CompagnieAerienneVol
 {
 
-    private int id;
+    private int               id;
     private CompagnieAerienne compagnieAerienne;
-    private Vol vol;
-    private String numero;
+    private Vol               vol;
+    private String            numero;
 
-    private short ouvert;
+    private short             ouvert;
 
     public CompagnieAerienneVol()
     {
@@ -79,9 +79,8 @@ public class CompagnieAerienneVol
     @Override
     public String toString()
     {
-        return "CompagnieAerienneVol [id=" + id + " compagnieAerienne="
-                + compagnieAerienne + ", vol=" + vol + ", numero=" + numero
-                + ", ouvert=" + ouvert + "]";
+        return "CompagnieAerienneVol [id=" + id + " compagnieAerienne=" + compagnieAerienne
+                + ", vol=" + vol + ", numero=" + numero + ", ouvert=" + ouvert + "]";
     }
 
 }

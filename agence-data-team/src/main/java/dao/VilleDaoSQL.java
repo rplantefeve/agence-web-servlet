@@ -27,8 +27,8 @@ public class VilleDaoSQL implements VilleDao
         // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
-            connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "user", "password");
+            connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "user",
+                    "password");
         }
         catch (SQLException e)
         {
@@ -61,8 +61,7 @@ public class VilleDaoSQL implements VilleDao
             /*
              * Connexion à la BDD
              */
-            PreparedStatement ps = connexion
-                    .prepareStatement("SELECT * FROM ville");
+            PreparedStatement ps = connexion.prepareStatement("SELECT * FROM ville");
             // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
             // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
@@ -72,8 +71,7 @@ public class VilleDaoSQL implements VilleDao
             while (tuple.next())
             {
                 // Creation d'un objet Ville
-                Ville ville = new Ville(tuple.getInt("id"),
-                        tuple.getString("nom"));
+                Ville ville = new Ville(tuple.getInt("id"), tuple.getString("nom"));
                 // Ajout du nouvel objet Ville cr�� � la liste des villes
                 villes.add(ville);
             } // fin de la boucle de parcoutuple de l'ensemble des résultats
@@ -95,8 +93,7 @@ public class VilleDaoSQL implements VilleDao
         try
         {
             // Connexion à la BDD
-            PreparedStatement ps = connexion
-                    .prepareStatement("SELECT * FROM ville where id=?");
+            PreparedStatement ps = connexion.prepareStatement("SELECT * FROM ville where id=?");
             // Cherche l'idVill voulu dans la BDD
             ps.setInt(1, id);
 
@@ -123,8 +120,8 @@ public class VilleDaoSQL implements VilleDao
         try
         {
 
-            PreparedStatement requete = connexion.prepareStatement(
-                    "INSERT INTO ville (id, nom) VALUES(?,?)");
+            PreparedStatement requete = connexion
+                    .prepareStatement("INSERT INTO ville (id, nom) VALUES(?,?)");
 
             requete.setLong(1, ville.getIdVil());
             requete.setString(2, ville.getNom());
@@ -165,8 +162,7 @@ public class VilleDaoSQL implements VilleDao
 
         try
         {
-            PreparedStatement ps = connexion
-                    .prepareStatement("delete from ville where id = ?");
+            PreparedStatement ps = connexion.prepareStatement("delete from ville where id = ?");
             ps.setLong(1, ville.getIdVil());
 
             ps.executeUpdate();

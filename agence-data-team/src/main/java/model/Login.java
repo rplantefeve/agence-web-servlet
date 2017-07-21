@@ -12,10 +12,10 @@ public class Login
     /**
      * 
      */
-    private int idLog;
+    private int    idLog;
     private String Login;
     private String motDePasse;
-    private int admin;
+    private int    admin;
 
     public Login()
     {
@@ -71,8 +71,8 @@ public class Login
     @Override
     public String toString()
     {
-        return "Login [idLog=" + idLog + ", Login=" + Login + ", motDePasse="
-                + motDePasse + ", admin=" + admin + "]";
+        return "Login [idLog=" + idLog + ", Login=" + Login + ", motDePasse=" + motDePasse
+                + ", admin=" + admin + "]";
     }
 
 }

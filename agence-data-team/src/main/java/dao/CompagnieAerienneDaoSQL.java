@@ -27,8 +27,8 @@ public class CompagnieAerienneDaoSQL implements CompagnieAerienneDao
         // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
-            connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "user", "password");
+            connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "user",
+                    "password");
         }
         catch (SQLException e)
         {
@@ -61,8 +61,7 @@ public class CompagnieAerienneDaoSQL implements CompagnieAerienneDao
             /*
              * Connexion à la BDD
              */
-            PreparedStatement ps = connexion
-                    .prepareStatement("SELECT * FROM compagnie_aerienne");
+            PreparedStatement ps = connexion.prepareStatement("SELECT * FROM compagnie_aerienne");
             // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
             // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
@@ -72,8 +71,8 @@ public class CompagnieAerienneDaoSQL implements CompagnieAerienneDao
             while (tuple.next())
             {
                 // Creation d'un objet compagnieAerienne
-                CompagnieAerienne compagnieAerienne = new CompagnieAerienne(
-                        tuple.getInt("id"), tuple.getString("nom"));
+                CompagnieAerienne compagnieAerienne = new CompagnieAerienne(tuple.getInt("id"),
+                        tuple.getString("nom"));
                 // Ajout du nouvel objet compagnieAerienne créé à la liste des
                 // compagniesAeriennes
                 compagniesAeriennes.add(compagnieAerienne);
@@ -95,8 +94,8 @@ public class CompagnieAerienneDaoSQL implements CompagnieAerienneDao
 
         try
         {
-            PreparedStatement ps = connexion.prepareStatement(
-                    "SELECT * FROM compagnie_aerienne where id=?");
+            PreparedStatement ps = connexion
+                    .prepareStatement("SELECT * FROM compagnie_aerienne where id=?");
             // Cherche l'idComp recherché dans la BDD
             ps.setInt(1, id);
 
@@ -124,8 +123,8 @@ public class CompagnieAerienneDaoSQL implements CompagnieAerienneDao
 
         try
         {
-            PreparedStatement requete = connexion.prepareStatement(
-                    "INSERT INTO compagnie_aerienne (id, nom) VALUES(?,?)");
+            PreparedStatement requete = connexion
+                    .prepareStatement("INSERT INTO compagnie_aerienne (id, nom) VALUES(?,?)");
 
             requete.setInt(1, compagnieAerienne.getId());
             requete.setString(2, compagnieAerienne.getNom());
@@ -144,8 +143,8 @@ public class CompagnieAerienneDaoSQL implements CompagnieAerienneDao
 
         try
         {
-            PreparedStatement ps = connexion.prepareStatement(
-                    "UPDATE compagnie_aerienne SET nom=? WHERE id = ?");
+            PreparedStatement ps = connexion
+                    .prepareStatement("UPDATE compagnie_aerienne SET nom=? WHERE id = ?");
 
             ps.setString(1, compagnieAerienne.getNom());
             ps.setInt(2, compagnieAerienne.getId());
@@ -166,8 +165,8 @@ public class CompagnieAerienneDaoSQL implements CompagnieAerienneDao
 
         try
         {
-            PreparedStatement ps = connexion.prepareStatement(
-                    "delete from compagnie_aerienne where id = ?");
+            PreparedStatement ps = connexion
+                    .prepareStatement("delete from compagnie_aerienne where id = ?");
             ps.setLong(1, compagnieAerienne.getId());
 
             ps.executeUpdate();

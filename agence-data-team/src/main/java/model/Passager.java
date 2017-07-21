@@ -6,15 +6,15 @@ public class Passager
     /**
      * Id du passager
      */
-    private int idPas;
+    private int     idPas;
     /**
      * Nom du passager
      */
-    private String nom;
+    private String  nom;
     /**
      * Prenom du passager
      */
-    private String prenom;
+    private String  prenom;
 
     private Adresse adresse;
 
@@ -72,8 +72,8 @@ public class Passager
     @Override
     public String toString()
     {
-        return "Passager [idPas=" + idPas + ", nom=" + nom + ", prenom="
-                + prenom + ", adresse=" + adresse + "]";
+        return "Passager [idPas=" + idPas + ", nom=" + nom + ", prenom=" + prenom + ", adresse="
+                + adresse + "]";
     }
 
 }

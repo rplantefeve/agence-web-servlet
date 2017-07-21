@@ -33,8 +33,8 @@ public class PassagerDaoSQL implements PassagerDao
         // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
-            connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "user", "password");
+            connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "user",
+                    "password");
         }
         catch (SQLException e)
         {
@@ -62,8 +62,7 @@ public class PassagerDaoSQL implements PassagerDao
         AdresseDaoSql adresseDAO = new AdresseDaoSql();
         try
         {
-            PreparedStatement ps = connexion
-                    .prepareStatement("SELECT * FROM Passager");
+            PreparedStatement ps = connexion.prepareStatement("SELECT * FROM Passager");
             // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
             // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
@@ -101,8 +100,8 @@ public class PassagerDaoSQL implements PassagerDao
 
         try
         {
-            PreparedStatement ps = connexion.prepareStatement(
-                    "SELECT * FROM passager where idPassager=?");
+            PreparedStatement ps = connexion
+                    .prepareStatement("SELECT * FROM passager where idPassager=?");
             // Cherche l'idPas recherché dans la BDD
             ps.setInt(1, idPas);
 
@@ -180,8 +179,8 @@ public class PassagerDaoSQL implements PassagerDao
         try
         {
 
-            PreparedStatement ps = connexion.prepareStatement(
-                    "delete from passager where idPassager = ?");
+            PreparedStatement ps = connexion
+                    .prepareStatement("delete from passager where idPassager = ?");
             ps.setLong(1, passager.getIdPas());
 
             ps.executeUpdate();

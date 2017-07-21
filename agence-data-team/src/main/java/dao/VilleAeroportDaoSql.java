@@ -26,8 +26,8 @@ public class VilleAeroportDaoSql implements VilleAeroportDao
         // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
-            connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "user", "password");
+            connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "user",
+                    "password");
         }
         catch (SQLException e)
         {
@@ -62,8 +62,7 @@ public class VilleAeroportDaoSql implements VilleAeroportDao
              * Connexion à la BDD
              */
 
-            PreparedStatement ps = connexion
-                    .prepareStatement("SELECT * FROM ville_aeroport");
+            PreparedStatement ps = connexion.prepareStatement("SELECT * FROM ville_aeroport");
             // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
             // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
@@ -73,12 +72,9 @@ public class VilleAeroportDaoSql implements VilleAeroportDao
             while (tuple.next())
             {
                 // Creation d'un objet Aeroport
-                VilleAeroport villeAeroport = new VilleAeroport(
-                        tuple.getInt("id"));
-                villeAeroport
-                        .setVille(villeDAO.findById(tuple.getInt("idVille")));
-                villeAeroport.setAeroport(
-                        aeroportDAO.findById(tuple.getInt("idAeroport")));
+                VilleAeroport villeAeroport = new VilleAeroport(tuple.getInt("id"));
+                villeAeroport.setVille(villeDAO.findById(tuple.getInt("idVille")));
+                villeAeroport.setAeroport(aeroportDAO.findById(tuple.getInt("idAeroport")));
                 // Ajout du nouvel objet Aeroport cr�� � la liste des a�roports
                 villeAeroports.add(villeAeroport);
             } // fin de la boucle de parcoutuple de l'ensemble des résultats
@@ -115,8 +111,8 @@ public class VilleAeroportDaoSql implements VilleAeroportDao
         try
         {
 
-            PreparedStatement ps = connexion.prepareStatement(
-                    "SELECT * FROM ville_aeroport where id=?");
+            PreparedStatement ps = connexion
+                    .prepareStatement("SELECT * FROM ville_aeroport where id=?");
             // Cherche l'idAero voulu dans la BDD
             ps.setInt(1, id);
 
@@ -126,11 +122,9 @@ public class VilleAeroportDaoSql implements VilleAeroportDao
             if (tuple.next())
             {
                 villeAeroport = new VilleAeroport(tuple.getInt("id"));
-                villeAeroport
-                        .setVille(villeDAO.findById(tuple.getInt("idVille")));
+                villeAeroport.setVille(villeDAO.findById(tuple.getInt("idVille")));
                 villeDAO.fermetureConnexion();
-                villeAeroport.setAeroport(
-                        aeroportDAO.findById(tuple.getInt("idAeroport")));
+                villeAeroport.setAeroport(aeroportDAO.findById(tuple.getInt("idAeroport")));
                 aeroportDAO.fermetureConnexion();
 
             }
@@ -201,8 +195,8 @@ public class VilleAeroportDaoSql implements VilleAeroportDao
 
         try
         {
-            PreparedStatement ps = connexion.prepareStatement(
-                    "DELETE FROM ville_aeroport WHERE id = ?");
+            PreparedStatement ps = connexion
+                    .prepareStatement("DELETE FROM ville_aeroport WHERE id = ?");
             ps.setLong(1, villeAeroport.getId());
 
             ps.executeUpdate();

@@ -27,8 +27,8 @@ public class EscaleDaoSql implements EscaleDao
         // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
-            connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "user", "password");
+            connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "user",
+                    "password");
         }
         catch (SQLException e)
         {
@@ -60,8 +60,7 @@ public class EscaleDaoSql implements EscaleDao
         try
         {
             // connexion
-            PreparedStatement ps = connexion
-                    .prepareStatement("SELECT * FROM escale");
+            PreparedStatement ps = connexion.prepareStatement("SELECT * FROM escale");
             // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
             // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
@@ -79,8 +78,7 @@ public class EscaleDaoSql implements EscaleDao
                 // ajout des id Adress
                 escale.setVol(volDAO.findById(tuple.getInt("idVol")));
                 // ajout des aeroports
-                escale.setAeoroport(
-                        aeroportDAO.findById(tuple.getInt("idAeroport")));
+                escale.setAeoroport(aeroportDAO.findById(tuple.getInt("idAeroport")));
                 // Ajout du nouvel objet Aeroport créé à la liste des aéroports
                 escales.add(escale);
             } // fin de la boucle de parcoutuple de l'ensemble des résultats
@@ -124,8 +122,7 @@ public class EscaleDaoSql implements EscaleDao
                 escale.setHeureDepart(tuple.getTime("heureDepart"));
                 escale.setVol(vol.findById(tuple.getInt("idVol")));
                 vol.fermetureConnexion();
-                escale.setAeoroport(
-                        aeroport.findById(tuple.getInt("idAeroport")));
+                escale.setAeoroport(aeroport.findById(tuple.getInt("idAeroport")));
                 aeroport.fermetureConnexion();
             }
 
@@ -148,14 +145,10 @@ public class EscaleDaoSql implements EscaleDao
                     "INSERT INTO escale (idEscale, dateDepart, dateArrivee, heureDepart, heureArrivee, idAeroport, idVol) VALUES(?,?,?,?,?,?,?)");
 
             requete.setLong(1, escale.getIdEscale());
-            requete.setDate(2,
-                    new java.sql.Date(escale.getDateDepart().getTime()));
-            requete.setDate(3,
-                    new java.sql.Date(escale.getDateArrivee().getTime()));
-            requete.setTime(4,
-                    new java.sql.Time(escale.getHeureDepart().getTime()));
-            requete.setTime(5,
-                    new java.sql.Time(escale.getHeureArrivee().getTime()));
+            requete.setDate(2, new java.sql.Date(escale.getDateDepart().getTime()));
+            requete.setDate(3, new java.sql.Date(escale.getDateArrivee().getTime()));
+            requete.setTime(4, new java.sql.Time(escale.getHeureDepart().getTime()));
+            requete.setTime(5, new java.sql.Time(escale.getHeureArrivee().getTime()));
             requete.setLong(6, escale.getAeoroport().getIdAer());
             requete.setLong(7, escale.getVol().getIdVol());
 
@@ -177,14 +170,10 @@ public class EscaleDaoSql implements EscaleDao
             PreparedStatement requete = connexion.prepareStatement(
                     "UPDATE escale SET dateDepart=?,dateArrivee=?,heureDepart=?,heureArrivee=?,idAeroport=?,idVol=? WHERE idEscale = ?");
 
-            requete.setDate(1,
-                    new java.sql.Date(escale.getDateDepart().getTime()));
-            requete.setDate(2,
-                    new java.sql.Date(escale.getDateArrivee().getTime()));
-            requete.setTime(3,
-                    new java.sql.Time(escale.getHeureDepart().getTime()));
-            requete.setTime(4,
-                    new java.sql.Time(escale.getHeureArrivee().getTime()));
+            requete.setDate(1, new java.sql.Date(escale.getDateDepart().getTime()));
+            requete.setDate(2, new java.sql.Date(escale.getDateArrivee().getTime()));
+            requete.setTime(3, new java.sql.Time(escale.getHeureDepart().getTime()));
+            requete.setTime(4, new java.sql.Time(escale.getHeureArrivee().getTime()));
             requete.setLong(5, escale.getAeoroport().getIdAer());
             requete.setLong(6, escale.getVol().getIdVol());
             requete.setLong(7, escale.getIdEscale());

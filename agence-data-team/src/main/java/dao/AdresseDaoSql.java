@@ -29,8 +29,8 @@ public class AdresseDaoSql implements AdresseDao
         // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
-            connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "user", "password");
+            connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "user",
+                    "password");
         }
         catch (SQLException e)
         {
@@ -62,8 +62,7 @@ public class AdresseDaoSql implements AdresseDao
             /*
              * Connexion à la BDD
              */
-            PreparedStatement ps = connexion
-                    .prepareStatement("SELECT * FROM adresse");
+            PreparedStatement ps = connexion.prepareStatement("SELECT * FROM adresse");
 
             // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();

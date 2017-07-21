@@ -15,12 +15,12 @@ public class Escale
     /**
      * 
      */
-    private int idEscale;
-    private Date dateDepart;
-    private Date dateArrivee;
-    private Time heureDepart;
-    private Time heureArrivee;
-    private Vol vol;
+    private int      idEscale;
+    private Date     dateDepart;
+    private Date     dateArrivee;
+    private Time     heureDepart;
+    private Time     heureArrivee;
+    private Vol      vol;
 
     private Aeroport aeoroport;
 
@@ -112,10 +112,9 @@ public class Escale
     @Override
     public String toString()
     {
-        return "Escale [dateDepart=" + dateDepart + ", dateArrivee="
-                + dateArrivee + ", heureDepart=" + heureDepart
-                + ", heureArrivee=" + heureArrivee + ", idEscale=" + idEscale
-                + ", vol=" + vol + ", aeoroport=" + aeoroport + "]";
+        return "Escale [dateDepart=" + dateDepart + ", dateArrivee=" + dateArrivee
+                + ", heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + ", idEscale="
+                + idEscale + ", vol=" + vol + ", aeoroport=" + aeoroport + "]";
     }
 
 }

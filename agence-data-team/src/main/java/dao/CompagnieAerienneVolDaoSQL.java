@@ -26,8 +26,8 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
         // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
-            connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "user", "password");
+            connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "user",
+                    "password");
         }
         catch (SQLException e)
         {
@@ -75,10 +75,9 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
                 CompagnieAerienneVol compagnieaeriennevol = new CompagnieAerienneVol(
                         tuple.getString("numero"), tuple.getShort("ouvert"));
                 compagnieaeriennevol.setId(tuple.getInt("id"));
-                compagnieaeriennevol.setCompagnieAerienne(
-                        compagnieDAO.findById(tuple.getInt("idCompagnie")));
                 compagnieaeriennevol
-                        .setVol(volDAO.findById(tuple.getInt("idVol")));
+                        .setCompagnieAerienne(compagnieDAO.findById(tuple.getInt("idCompagnie")));
+                compagnieaeriennevol.setVol(volDAO.findById(tuple.getInt("idVol")));
                 // Ajout du nouvel objet Aeroport créé à la liste des élèves
                 compagnieaeriennevols.add(compagnieaeriennevol);
             } // fin de la boucle de parcours de l'ensemble des résultats
@@ -103,8 +102,8 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
         try
         {
 
-            PreparedStatement ps = connexion.prepareStatement(
-                    "SELECT * FROM compagnie_aerienne_vol where id=?");
+            PreparedStatement ps = connexion
+                    .prepareStatement("SELECT * FROM compagnie_aerienne_vol where id=?");
             // Cherche l'idComp recherché dans la BDD
             ps.setInt(1, id);
 
@@ -113,13 +112,12 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
 
             if (tuple.next())
             {
-                compagnieAerienneVol = new CompagnieAerienneVol(
-                        tuple.getString("numero"), tuple.getShort("ouvert"));
+                compagnieAerienneVol = new CompagnieAerienneVol(tuple.getString("numero"),
+                        tuple.getShort("ouvert"));
                 compagnieAerienneVol.setId(tuple.getInt("id"));
+                compagnieAerienneVol.setVol(volDAO.findById(tuple.getInt("idVol")));
                 compagnieAerienneVol
-                        .setVol(volDAO.findById(tuple.getInt("idVol")));
-                compagnieAerienneVol.setCompagnieAerienne(
-                        compagnieDAO.findById(tuple.getInt("idCompagnie")));
+                        .setCompagnieAerienne(compagnieDAO.findById(tuple.getInt("idCompagnie")));
                 volDAO.fermetureConnexion();
                 compagnieDAO.fermetureConnexion();
             }
@@ -144,8 +142,7 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
             // set sur le paramètre 1
             requete.setInt(1, compagnieAerienneVol.getId());
             requete.setString(2, compagnieAerienneVol.getNumero());
-            requete.setLong(3,
-                    compagnieAerienneVol.getCompagnieAerienne().getId());
+            requete.setLong(3, compagnieAerienneVol.getCompagnieAerienne().getId());
             requete.setInt(4, compagnieAerienneVol.getVol().getIdVol());
             requete.setShort(5, compagnieAerienneVol.getOuvert());
 
@@ -161,8 +158,7 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
     }
 
     @Override
-    public CompagnieAerienneVol update(
-            CompagnieAerienneVol compagnieAerienneVol)
+    public CompagnieAerienneVol update(CompagnieAerienneVol compagnieAerienneVol)
     {
 
         try
@@ -193,8 +189,8 @@ public class CompagnieAerienneVolDaoSQL implements CompagnieAerienneVolDao
 
         try
         {
-            PreparedStatement ps = connexion.prepareStatement(
-                    "delete from compagnie_aerienne_vol where id = ?");
+            PreparedStatement ps = connexion
+                    .prepareStatement("delete from compagnie_aerienne_vol where id = ?");
             ps.setLong(1, compagnieAerienneVol.getId());
 
             ps.executeUpdate();
