@@ -23,7 +23,7 @@ public class VilleAeroportDaoSql implements VilleAeroportDao
         {
             e.printStackTrace();
         }
-        // 2. Cr�er la connexion � la base (on instancie l'objet connexion)
+        // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
             connexion = DriverManager.getConnection(
@@ -59,15 +59,15 @@ public class VilleAeroportDaoSql implements VilleAeroportDao
         try
         {
             /*
-             * Connexion � la BDD
+             * Connexion à la BDD
              */
 
             PreparedStatement ps = connexion
                     .prepareStatement("SELECT * FROM ville_aeroport");
-            // 4. Execution de la requ�te
+            // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
-            // 5. Parcoutuple de l'ensemble des r�sultats (ResultSet) pour
-            // r�cup�rer les valeutuple des colonnes du tuple qui correspondent
+            // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
+            // récupérer les valeutuple des colonnes du tuple qui correspondent
             // aux
             // valeur des attributs de l'objet
             while (tuple.next())
@@ -81,7 +81,7 @@ public class VilleAeroportDaoSql implements VilleAeroportDao
                         aeroportDAO.findById(tuple.getInt("idAeroport")));
                 // Ajout du nouvel objet Aeroport cr�� � la liste des a�roports
                 villeAeroports.add(villeAeroport);
-            } // fin de la boucle de parcoutuple de l'ensemble des r�sultats
+            } // fin de la boucle de parcoutuple de l'ensemble des résultats
 
             // for (int i=0; i<villeAeroports.size(); i++)
             // {
@@ -100,14 +100,14 @@ public class VilleAeroportDaoSql implements VilleAeroportDao
         {
             e.printStackTrace();
         }
-        // Retourne la liste de tous les a�roports
+        // Retourne la liste de tous les aéroports
         return villeAeroports;
     }
 
     @Override
     public VilleAeroport findById(Integer id)
     {
-        // D�claration d'un objet aeroport
+        // Déclaration d'un objet aeroport
         VilleAeroport villeAeroport = null;
         AeroportDaoSQL aeroportDAO = new AeroportDaoSQL();
         VilleDaoSQL villeDAO = new VilleDaoSQL();
@@ -120,7 +120,7 @@ public class VilleAeroportDaoSql implements VilleAeroportDao
             // Cherche l'idAero voulu dans la BDD
             ps.setInt(1, id);
 
-            // R�cup�ration des r�sultats de la requ�te
+            // Récupération des résultats de la requête
             ResultSet tuple = ps.executeQuery();
 
             if (tuple.next())
@@ -150,13 +150,13 @@ public class VilleAeroportDaoSql implements VilleAeroportDao
 
         try
         {
-            // pr�pare la requete d'insertion, celle ci aura 5 param�tres
+            // prépare la requete d'insertion, celle ci aura 5 paramètres
             PreparedStatement requete;
             requete = connexion.prepareStatement(
                     "insert into ville_aeroport (id,idVille,idAeroport) VALUES(?,?,?)");
-            // set sur le param�tre 1
+            // set sur le paramètre 1
             requete.setInt(1, villeAeroport.getId());
-            // set sur le param�tre 2 ..
+            // set sur le paramètre 2 ..
             requete.setInt(2, villeAeroport.getVille().getIdVil());
             requete.setInt(3, villeAeroport.getAeroport().getIdAer());
 

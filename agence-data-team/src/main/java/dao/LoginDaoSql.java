@@ -123,7 +123,7 @@ public class LoginDaoSql implements LoginDao
 
                 // Ajout du nouvel objet Client créé à la liste des clients
                 ListLogin.add(objLogin);
-            } // fin de la boucle de parcoutuple de l'ensemble des r�sultats
+            } // fin de la boucle de parcoutuple de l'ensemble des résultats
 
         }
         catch (SQLException e)
@@ -142,7 +142,7 @@ public class LoginDaoSql implements LoginDao
 
         try
         {
-            // Connexion � la BDD
+            // Connexion à la BDD
             PreparedStatement requete = this.connexion
                     .prepareStatement("SELECT * FROM login WHERE id=?");
             // Cherche l'idVill voulu dans la BDD

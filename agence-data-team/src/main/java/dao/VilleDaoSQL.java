@@ -24,7 +24,7 @@ public class VilleDaoSQL implements VilleDao
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // 2. Cr�er la connexion � la base (on instancie l'objet connexion)
+        // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
             connexion = DriverManager.getConnection(
@@ -55,18 +55,18 @@ public class VilleDaoSQL implements VilleDao
     {
         // Liste des villes que l'on va retourner
         List<Ville> villes = new ArrayList<Ville>();
-        // Connexion � la BDD
+        // Connexion à la BDD
         try
         {
             /*
-             * Connexion � la BDD
+             * Connexion à la BDD
              */
             PreparedStatement ps = connexion
                     .prepareStatement("SELECT * FROM ville");
-            // 4. Execution de la requ�te
+            // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
-            // 5. Parcoutuple de l'ensemble des r�sultats (ResultSet) pour
-            // r�cup�rer les valeutuple des colonnes du tuple qui correspondent
+            // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
+            // récupérer les valeutuple des colonnes du tuple qui correspondent
             // aux
             // valeur des attributs de l'objet
             while (tuple.next())
@@ -76,7 +76,7 @@ public class VilleDaoSQL implements VilleDao
                         tuple.getString("nom"));
                 // Ajout du nouvel objet Ville cr�� � la liste des villes
                 villes.add(ville);
-            } // fin de la boucle de parcoutuple de l'ensemble des r�sultats
+            } // fin de la boucle de parcoutuple de l'ensemble des résultats
 
         }
         catch (SQLException e)
@@ -89,18 +89,18 @@ public class VilleDaoSQL implements VilleDao
 
     public Ville findById(Integer id)
     {
-        // D�claration d'un objet ville
+        // Déclaration d'un objet ville
         Ville ville = null;
 
         try
         {
-            // Connexion � la BDD
+            // Connexion à la BDD
             PreparedStatement ps = connexion
                     .prepareStatement("SELECT * FROM ville where id=?");
             // Cherche l'idVill voulu dans la BDD
             ps.setInt(1, id);
 
-            // R�cup�ration des r�sultats de la requ�te
+            // Récupération des résultats de la requête
             ResultSet tuple = ps.executeQuery();
 
             if (tuple.next())

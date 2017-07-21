@@ -25,7 +25,7 @@ public class ClientDaoSql implements ClientDao
         {
             e.printStackTrace();
         }
-        // 2. Cr�er la connexion � la base (on instancie l'objet connexion)
+        // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
             this.connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "user",
@@ -109,14 +109,14 @@ public class ClientDaoSql implements ClientDao
         {
 
             /*
-             * Connexion � la BDD
+             * Connexion à la BDD
              */
             PreparedStatement ps = this.connexion.prepareStatement("SELECT * FROM client");
 
-            // 4. Execution de la requ�te
+            // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
-            // 5. Parcoutuple de l'ensemble des r�sultats (ResultSet) pour
-            // r�cup�rer les valeutuple des colonnes du tuple qui correspondent
+            // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
+            // récupérer les valeutuple des colonnes du tuple qui correspondent
             // aux
             // valeur des attributs de l'objet
             while (tuple.next())
@@ -146,7 +146,7 @@ public class ClientDaoSql implements ClientDao
 
                 // Ajout du nouvel objet Client cr�� � la liste des clients
                 ListClients.add(objClient);
-            } // fin de la boucle de parcoutuple de l'ensemble des r�sultats
+            } // fin de la boucle de parcoutuple de l'ensemble des résultats
             adresseDAO.fermetureConnexion();
             loginDAO.fermetureConnexion();
 
@@ -169,7 +169,7 @@ public class ClientDaoSql implements ClientDao
 
         try
         {
-            // Connexion � la BDD
+            // Connexion à la BDD
             PreparedStatement ps = this.connexion
                     .prepareStatement("SELECT * FROM client WHERE idClient=?");
             // Cherche l'idVill voulu dans la BDD

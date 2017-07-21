@@ -26,7 +26,7 @@ public class AdresseDaoSql implements AdresseDao
 
             e.printStackTrace();
         }
-        // 2. Cr�er la connexion � la base (on instancie l'objet connexion)
+        // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
             connexion = DriverManager.getConnection(
@@ -60,15 +60,15 @@ public class AdresseDaoSql implements AdresseDao
         try
         {
             /*
-             * Connexion � la BDD
+             * Connexion à la BDD
              */
             PreparedStatement ps = connexion
                     .prepareStatement("SELECT * FROM adresse");
 
-            // 4. Execution de la requ�te
+            // 4. Execution de la requête
             ResultSet tuple = ps.executeQuery();
-            // 5. Parcoutuple de l'ensemble des r�sultats (ResultSet) pour
-            // r�cup�rer les valeutuple des colonnes du tuple qui correspondent
+            // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
+            // récupérer les valeutuple des colonnes du tuple qui correspondent
             // aux
             // valeur des attributs de l'objet
             while (tuple.next())
@@ -83,7 +83,7 @@ public class AdresseDaoSql implements AdresseDao
 
                 // Ajout du nouvel objet Client cr�� � la liste des clients
                 ListAdresse.add(objAdresse);
-            } // fin de la boucle de parcoutuple de l'ensemble des r�sultats
+            } // fin de la boucle de parcoutuple de l'ensemble des résultats
 
         }
         catch (SQLException e)
@@ -102,7 +102,7 @@ public class AdresseDaoSql implements AdresseDao
 
         try
         {
-            // Connexion � la BDD
+            // Connexion à la BDD
             PreparedStatement ps = connexion
                     .prepareStatement("SELECT * FROM adresse WHERE idAdd=?");
             // Cherche l'idVill voulu dans la BDD
