@@ -26,11 +26,11 @@ public class LoginDaoSql implements LoginDao
 
             e.printStackTrace();
         }
-        // 2. Cr�er la connexion � la base (on instancie l'objet connexion)
+        // 2. Créer la connexion à la base (on instancie l'objet connexion)
         try
         {
-            connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/vol", "user", "password");
+            this.connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/vol", "user",
+                    "password");
         }
         catch (SQLException e)
         {
@@ -39,11 +39,53 @@ public class LoginDaoSql implements LoginDao
         }
     }
 
+    @Override
+    public void create(Login login)
+    {
+        try
+        {
+
+            PreparedStatement requete = this.connexion.prepareStatement(
+                    "INSERT INTO login (id, login, motDePasse, admin) VALUES(?,?,?,?)");
+
+            requete.setLong(1, login.getIdLog());
+            requete.setString(2, login.getLogin());
+            requete.setString(3, login.getMotDePasse());
+            requete.setLong(4, login.getAdmin());
+
+            requete.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(Login login)
+    {
+        try
+        {
+
+            PreparedStatement requete = this.connexion
+                    .prepareStatement("delete from login where id = ?");
+            requete.setLong(1, login.getIdLog());
+
+            requete.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public void fermetureConnexion()
     {
         try
         {
-            connexion.close();
+            this.connexion.close();
         }
         catch (SQLException e)
         {
@@ -55,20 +97,19 @@ public class LoginDaoSql implements LoginDao
     public List<Login> findAll()
     {
         // Liste des clients que l'on va retourner
-        List<Login> ListLogin = new ArrayList<Login>();
+        List<Login> ListLogin = new ArrayList<>();
 
         try
         {
             /*
-             * Connexion � la BDD
+             * Connexion à la BDD
              */
-            PreparedStatement requete = connexion
-                    .prepareStatement("SELECT * FROM login");
+            PreparedStatement requete = this.connexion.prepareStatement("SELECT * FROM login");
 
-            // 4. Execution de la requ�te
+            // 4. Execution de la requête
             ResultSet tuple = requete.executeQuery();
-            // 5. Parcoutuple de l'ensemble des r�sultats (ResultSet) pour
-            // r�cup�rer les valeutuple des colonnes du tuple qui correspondent
+            // 5. Parcoutuple de l'ensemble des résultats (ResultSet) pour
+            // récupérer les valeutuple des colonnes du tuple qui correspondent
             // aux
             // valeur des attributs de l'objet
             while (tuple.next())
@@ -80,7 +121,7 @@ public class LoginDaoSql implements LoginDao
                 objLogin.setMotDePasse(tuple.getString("motDePasse"));
                 objLogin.setAdmin(tuple.getInt("admin"));
 
-                // Ajout du nouvel objet Client cr�� � la liste des clients
+                // Ajout du nouvel objet Client créé à la liste des clients
                 ListLogin.add(objLogin);
             } // fin de la boucle de parcoutuple de l'ensemble des r�sultats
 
@@ -96,13 +137,13 @@ public class LoginDaoSql implements LoginDao
     @Override
     public Login findById(Integer id)
     {
-        // D�claration d'un objet Client
+        // Déclaration d'un objet Client
         Login objLogin = null;
 
         try
         {
             // Connexion � la BDD
-            PreparedStatement requete = connexion
+            PreparedStatement requete = this.connexion
                     .prepareStatement("SELECT * FROM login WHERE id=?");
             // Cherche l'idVill voulu dans la BDD
             requete.setInt(1, id);
@@ -128,36 +169,13 @@ public class LoginDaoSql implements LoginDao
     }
 
     @Override
-    public void create(Login login)
-    {
-        try
-        {
-
-            PreparedStatement requete = connexion.prepareStatement(
-                    "INSERT INTO login (id, login, motDePasse, admin) VALUES(?,?,?,?)");
-
-            requete.setLong(1, login.getIdLog());
-            requete.setString(2, login.getLogin());
-            requete.setString(3, login.getMotDePasse());
-            requete.setLong(4, login.getAdmin());
-
-            requete.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public Login update(Login login)
     {
         try
         {
 
-            PreparedStatement requete = connexion.prepareStatement(
-                    "UPDATE login SET login=?,motDePasse=?,admin=? WHERE id = ?");
+            PreparedStatement requete = this.connexion
+                    .prepareStatement("UPDATE login SET login=?,motDePasse=?,admin=? WHERE id = ?");
 
             requete.setString(1, login.getLogin());
             requete.setString(2, login.getMotDePasse());
@@ -173,25 +191,6 @@ public class LoginDaoSql implements LoginDao
         }
 
         return login;
-    }
-
-    @Override
-    public void delete(Login login)
-    {
-        try
-        {
-
-            PreparedStatement requete = connexion
-                    .prepareStatement("delete from login where id = ?");
-            requete.setLong(1, login.getIdLog());
-
-            requete.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
     }
 
 }
