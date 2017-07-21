@@ -5,3 +5,4 @@ Application CRUD de gestion d'une agence de voyages
 
 # Release notes
 ## v0.1 : Partie Data implémentée
+## v0.1.1 : Partie Web implémentée
