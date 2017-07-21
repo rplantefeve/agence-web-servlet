@@ -10,6 +10,11 @@ public class CompagnieAerienneVol
 
     private short ouvert;
 
+    public CompagnieAerienneVol()
+    {
+
+    }
+
     public CompagnieAerienneVol(String numero, short ouvert)
     {
         this.numero = numero;

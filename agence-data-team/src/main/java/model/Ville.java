@@ -13,6 +13,11 @@ public class Ville
      */
     private String nom;
 
+    public Ville()
+    {
+
+    }
+
     public Ville(int idVil, String nom)
     {
         this.idVil = idVil;

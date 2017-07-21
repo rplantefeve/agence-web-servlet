@@ -13,6 +13,11 @@ public class CompagnieAerienne
      */
     private String nom;
 
+    public CompagnieAerienne()
+    {
+
+    }
+
     public CompagnieAerienne(int id, String nom)
     {
         this.id = id;

@@ -39,6 +39,14 @@ public class Vol
     private List<Escale> escales;
 
     /**
+     * Constructeur de vol
+     */
+    public Vol()
+    {
+        this.escales = new ArrayList<Escale>();
+    }
+
+    /**
      * constructeur de vol
      * 
      * @param idVol

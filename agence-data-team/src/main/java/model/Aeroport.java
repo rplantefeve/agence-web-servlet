@@ -20,6 +20,19 @@ public class Aeroport
      */
     private List<Ville> villes = new ArrayList<Ville>();
 
+    /**
+     * Constructeur de aeroport
+     */
+    public Aeroport()
+    {
+
+    }
+
+    public Aeroport(int idAer)
+    {
+        this.idAer = idAer;
+    }
+
     public Aeroport(int idAer, String nom)
     {
         this.nom = nom;
