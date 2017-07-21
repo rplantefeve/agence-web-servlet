@@ -162,7 +162,7 @@ public class ClientDaoSql implements ClientDao
     @Override
     public Client findById(Integer idCli)
     {
-        // D�claration d'un objet Client
+        // Déclaration d'un objet Client
         Client objClient = null;
         AdresseDaoSql adresseDAO = new AdresseDaoSql();
         LoginDaoSql loginDAO = new LoginDaoSql();
@@ -175,7 +175,7 @@ public class ClientDaoSql implements ClientDao
             // Cherche l'idVill voulu dans la BDD
             ps.setInt(1, idCli);
 
-            // R�cup�ration des r�sultats de la requ�te
+            // Récupération des résultats de la requête
             ResultSet tuple = ps.executeQuery();
 
             if (tuple.next())

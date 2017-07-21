@@ -148,7 +148,7 @@ public class LoginDaoSql implements LoginDao
             // Cherche l'idVill voulu dans la BDD
             requete.setInt(1, id);
 
-            // R�cup�ration des r�sultats de la requ�te
+            // Récupération des résultats de la requête
             ResultSet tuple = requete.executeQuery();
 
             if (tuple.next())

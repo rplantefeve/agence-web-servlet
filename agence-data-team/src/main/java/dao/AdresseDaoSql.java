@@ -81,7 +81,7 @@ public class AdresseDaoSql implements AdresseDao
                 objAdresse.setVille(tuple.getString("ville"));
                 objAdresse.setPays(tuple.getString("pays"));
 
-                // Ajout du nouvel objet Client cr�� � la liste des clients
+                // Ajout du nouvel objet Client créé à la liste des clients
                 ListAdresse.add(objAdresse);
             } // fin de la boucle de parcoutuple de l'ensemble des résultats
 
@@ -97,7 +97,7 @@ public class AdresseDaoSql implements AdresseDao
     @Override
     public Adresse findById(Integer idAdd)
     {
-        // D�claration d'un objet Client
+        // Déclaration d'un objet Client
         Adresse objAdresse = null;
 
         try
@@ -108,7 +108,7 @@ public class AdresseDaoSql implements AdresseDao
             // Cherche l'idVill voulu dans la BDD
             ps.setInt(1, idAdd);
 
-            // R�cup�ration des r�sultats de la requ�te
+            // Récupération des résultats de la requête
             ResultSet tuple = ps.executeQuery();
 
             if (tuple.next())
