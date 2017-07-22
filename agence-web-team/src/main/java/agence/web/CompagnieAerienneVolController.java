@@ -31,27 +31,27 @@ public class CompagnieAerienneVolController extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        // on teste si le param�tre action est pr�sent dans l'url
+        // on teste si le paramètre action est présent dans l'url
         String action = request.getParameter("action") != null ? request.getParameter("action")
                 : "list";
-        // si l'action demand�e par le user est la liste des �l�ves,
+        // si l'action demandée par le user est la liste des BO,
         if (action.equals("list"))
         {
-            // je r�cup�re la liste des �l�ves
+            // je récupère la liste des BO
             List<CompagnieAerienneVol> ListCompagnieAerienneVol = this.compagnieAerienneVolDao
                     .findAll();
             // je la charge dans l'objet request
             request.setAttribute("compagnieAerienneVol", ListCompagnieAerienneVol);
-            // je pr�pare le dispatche de la requ�te vers la page eleves.jsp
-            RequestDispatcher rd = request.getRequestDispatcher("compagnieAerienneVol.jsp");
-            // le controller fait suivre la requ�te et la r�ponse � la jsp
+            // je prépare le dispatche de la requête vers la page BOs.jsp
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienneVol.jsp");
+            // le controller fait suivre la requête et la réponse à la jsp
             rd.forward(request, response);
         }
         else if (action.equals("add"))
         {
             request.setAttribute("compagnieAerienneVol", new CompagnieAerienneVol());
 
-            RequestDispatcher rd = request.getRequestDispatcher("compagnieAerienneVolEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienneVolEdit.jsp");
 
             rd.forward(request, response);
         }
@@ -63,17 +63,15 @@ public class CompagnieAerienneVolController extends HttpServlet
 
             request.setAttribute("compagnieAerienneVol", compagnieAerienneVol);
 
-            RequestDispatcher rd = request.getRequestDispatcher("compagnieAerienneVolEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienneVolEdit.jsp");
 
             rd.forward(request, response);
 
         }
         else if (action.equals("update"))
         {
-            // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String idForm = request.getParameter("id");
 
-            // Date dtNais = null;
             Integer id = null;
             String numero = "";
             Vol vol = null;
@@ -125,7 +123,7 @@ public class CompagnieAerienneVolController extends HttpServlet
 
             request.setAttribute("compagnieAerienneVol", this.compagnieAerienneVolDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("compagnieAerienneVol.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienneVol.jsp");
 
             rd.forward(request, response);
 
@@ -140,7 +138,7 @@ public class CompagnieAerienneVolController extends HttpServlet
 
             request.setAttribute("compagnieAerienneVol", this.compagnieAerienneVolDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("compagnieAerienneVol.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienneVol.jsp");
 
             rd.forward(request, response);
         }

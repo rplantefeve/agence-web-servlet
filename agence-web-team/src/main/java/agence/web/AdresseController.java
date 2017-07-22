@@ -20,21 +20,22 @@ public class AdresseController extends HttpServlet
 
     private AdresseDao adresseDao = new AdresseDaoSql();
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
         // on teste si le paramètre action est présent dans l'URL
         String action = request.getParameter("action") != null ? request.getParameter("action")
                 : "list";
-        // si l'action demandée par le user est la liste des élèves
+        // si l'action demandée par le user est la liste des BO
         if (action.equals("list"))
         {
             // je récupère la liste des adresses
-            List<Adresse> adresses = adresseDao.findAll();
+            List<Adresse> adresses = this.adresseDao.findAll();
             // je la charge dans le request
             request.setAttribute("adresses", adresses);
-            // je prépare le dispatche de la requête vers ma page adresses.jsp
-            RequestDispatcher rd = request.getRequestDispatcher("adresses.jsp");
+            // je récupère la liste des élèvema page adresses.jsp
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/adresses.jsp");
             // le ctrl fait suivre la requête et la réponse à la jsp
             rd.forward(request, response);
         }
@@ -42,7 +43,7 @@ public class AdresseController extends HttpServlet
         {
             request.setAttribute("adresse", new Adresse());
 
-            RequestDispatcher rd = request.getRequestDispatcher("adresseEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/adresseEdit.jsp");
 
             rd.forward(request, response);
         }
@@ -50,11 +51,11 @@ public class AdresseController extends HttpServlet
         {
             Integer id = Integer.parseInt(request.getParameter("id"));
 
-            Adresse adresse = adresseDao.findById(id);
+            Adresse adresse = this.adresseDao.findById(id);
 
             request.setAttribute("adresse", adresse);
 
-            RequestDispatcher rd = request.getRequestDispatcher("adresseEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/adresseEdit.jsp");
 
             rd.forward(request, response);
 
@@ -94,7 +95,7 @@ public class AdresseController extends HttpServlet
             }
             else
             {
-                adresseObj = adresseDao.findById(id);
+                adresseObj = this.adresseDao.findById(id);
             }
 
             adresseObj.setAdresse(adresse);
@@ -104,16 +105,16 @@ public class AdresseController extends HttpServlet
 
             if (id == null)
             {
-                adresseDao.create(adresseObj);
+                this.adresseDao.create(adresseObj);
             }
             else
             {
-                adresseDao.update(adresseObj);
+                this.adresseDao.update(adresseObj);
             }
 
-            request.setAttribute("adresses", adresseDao.findAll());
+            request.setAttribute("adresses", this.adresseDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("adresses.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/adresses.jsp");
 
             rd.forward(request, response);
 
@@ -122,13 +123,13 @@ public class AdresseController extends HttpServlet
         {
             Integer id = Integer.parseInt(request.getParameter("id"));
 
-            Adresse adresseObj = adresseDao.findById(id);
+            Adresse adresseObj = this.adresseDao.findById(id);
 
-            adresseDao.delete(adresseObj);
+            this.adresseDao.delete(adresseObj);
 
-            request.setAttribute("adresses", adresseDao.findAll());
+            request.setAttribute("adresses", this.adresseDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("adresses.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/adresses.jsp");
 
             rd.forward(request, response);
         }
@@ -138,10 +139,11 @@ public class AdresseController extends HttpServlet
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      *      response)
      */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        doGet(request, response);
+        this.doGet(request, response);
     }
 
 }

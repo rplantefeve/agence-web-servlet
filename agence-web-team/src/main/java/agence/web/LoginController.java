@@ -27,17 +27,17 @@ public class LoginController extends HttpServlet
         // on test si le param action des présent dans l'url
         String action = request.getParameter("action") != null ? request.getParameter("action")
                 : "list";
-        // si l'action demandé par le user est la liste des login
+        // si l'action demandée par le user est la liste des login
 
         if (action.equals("list"))
         {
-            // je récupère le liste des élèves
+            // je récupère la liste des BO
             List<Login> logins = this.loginDao.findAll();
             // je la charge dans l'obj request
             request.setAttribute("logins", logins);
-            // je prépare le dispatche ma requete vers la page eleve.jsp
-            RequestDispatcher rd = request.getRequestDispatcher("logins.jsp");
-            // le c1trl fait suivre la requete et la réponse à la jsp
+            // je dispache la requête vers la page bos.jsp
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/logins.jsp");
+            // le ctrl fait suivre la requête et la réponse à la jsp
             rd.forward(request, response);
 
         }
@@ -45,7 +45,7 @@ public class LoginController extends HttpServlet
         {
             request.setAttribute("login", new Login());
 
-            RequestDispatcher rd = request.getRequestDispatcher("loginEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/loginEdit.jsp");
 
             rd.forward(request, response);
         }
@@ -57,7 +57,7 @@ public class LoginController extends HttpServlet
 
             request.setAttribute("login", login);
 
-            RequestDispatcher rd = request.getRequestDispatcher("loginEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/loginEdit.jsp");
 
             rd.forward(request, response);
 
@@ -114,7 +114,7 @@ public class LoginController extends HttpServlet
 
             request.setAttribute("logins", this.loginDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("logins.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/logins.jsp");
 
             rd.forward(request, response);
 
@@ -129,7 +129,7 @@ public class LoginController extends HttpServlet
 
             request.setAttribute("logins", this.loginDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("logins.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/logins.jsp");
 
             rd.forward(request, response);
         }

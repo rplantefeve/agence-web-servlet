@@ -36,7 +36,7 @@ public class ClientController extends HttpServlet
             // je la charge dans l'objet request
             request.setAttribute("clients", clients);
             // je prépare le dispatche de la requète vers ma page clients.jsp
-            RequestDispatcher rd = request.getRequestDispatcher("clients.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/clients.jsp");
             // le controller fait suivre la requête et la réponse à la jsp
             rd.forward(request, response);
         }
@@ -44,7 +44,7 @@ public class ClientController extends HttpServlet
         {
             request.setAttribute("client", new Client());
 
-            RequestDispatcher rd = request.getRequestDispatcher("clientEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/clientEdit.jsp");
 
             rd.forward(request, response);
         }
@@ -56,7 +56,7 @@ public class ClientController extends HttpServlet
 
             request.setAttribute("client", client);
 
-            RequestDispatcher rd = request.getRequestDispatcher("clientEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/clientEdit.jsp");
 
             rd.forward(request, response);
 
@@ -127,7 +127,7 @@ public class ClientController extends HttpServlet
 
             request.setAttribute("clients", this.clientDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("clients.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/clients.jsp");
 
             rd.forward(request, response);
 
@@ -142,7 +142,7 @@ public class ClientController extends HttpServlet
 
             request.setAttribute("clients", this.clientDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("clients.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/clients.jsp");
 
             rd.forward(request, response);
         }

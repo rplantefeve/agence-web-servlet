@@ -26,23 +26,23 @@ public class AeroportController extends HttpServlet
         // on teste si le parametre action est present dans l'url
         String action = request.getParameter("action") != null ? request.getParameter("action")
                 : "list";
-        // si l'action demand� par le user est la liste des eleves
+        // si l'action demandé par le user est la liste des BOs
         if (action.equals("list"))
         {
             // je recupere la liste des aeroports
             List<Aeroport> aeroports = this.aeroportDao.findAll();
             // je charge dans l'objet request
             request.setAttribute("aeroport", aeroports);
-            // je dispatche la requete vers ma page eleves.jsp
-            RequestDispatcher rd = request.getRequestDispatcher("aeroport.jsp");
-            // le ctrl fait suivre la requete et la reponse � la jsp
+            // je dispatche la requete vers ma page BOs.jsp
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/aeroport.jsp");
+            // le ctrl fait suivre la requete et la reponse à la jsp
             rd.forward(request, response);
         }
         else if (action.equals("add"))
         {
             request.setAttribute("aeroport", new Aeroport());
 
-            RequestDispatcher rd = request.getRequestDispatcher("aeroportEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/aeroportEdit.jsp");
 
             rd.forward(request, response);
         }
@@ -54,7 +54,7 @@ public class AeroportController extends HttpServlet
 
             request.setAttribute("aeroport", aeroport);
 
-            RequestDispatcher rd = request.getRequestDispatcher("aeroportEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/aeroportEdit.jsp");
 
             rd.forward(request, response);
 
@@ -74,12 +74,6 @@ public class AeroportController extends HttpServlet
                 idAero = Integer.parseInt(idForm);
             }
             nom = request.getParameter("nom");
-
-            // }
-            // catch (ParseException e)
-            // {
-            // e.printStackTrace();
-            // }
 
             Aeroport aeroport = null;
 
@@ -105,7 +99,7 @@ public class AeroportController extends HttpServlet
 
             request.setAttribute("aeroport", this.aeroportDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("aeroport.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/aeroport.jsp");
 
             rd.forward(request, response);
 
@@ -120,7 +114,7 @@ public class AeroportController extends HttpServlet
 
             request.setAttribute("aeroport", this.aeroportDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("aeroport.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/aeroport.jsp");
 
             rd.forward(request, response);
         }
