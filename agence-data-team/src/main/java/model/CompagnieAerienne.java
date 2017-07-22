@@ -1,6 +1,6 @@
 package model;
 
-public class CompagnieAerienne
+public class CompagnieAerienne implements BO
 {
 
     /**
@@ -26,17 +26,17 @@ public class CompagnieAerienne
 
     public int getId()
     {
-        return id;
+        return this.id;
+    }
+
+    public String getNom()
+    {
+        return this.nom;
     }
 
     public void setId(int id)
     {
         this.id = id;
-    }
-
-    public String getNom()
-    {
-        return nom;
     }
 
     public void setNom(String nom)
@@ -47,7 +47,7 @@ public class CompagnieAerienne
     @Override
     public String toString()
     {
-        return "CompagnieAerienne [id=" + id + ", nom=" + nom + "]";
+        return "CompagnieAerienne [id=" + this.id + ", nom=" + this.nom + "]";
     }
 
 }

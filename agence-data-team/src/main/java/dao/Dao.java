@@ -12,24 +12,8 @@ import java.util.List;
  * @param <PK>
  *            Le type de clé primaire générique
  */
-public interface Dao<BO, PK>
+public interface Dao<BO>
 {
-
-    /**
-     * Retourne un objet métier en fonction de sa clé primaire
-     * 
-     * @param id
-     *            Clé primaire
-     * @return L'objet métier trouvé
-     */
-    BO findById(PK id);
-
-    /**
-     * Retourne tous les objets métiers d'un type donné de la source de données
-     * 
-     * @return La liste des objets métiers
-     */
-    List<BO> findAll();
 
     /**
      * Crée un nouvel objet métier afin de le persister
@@ -40,6 +24,30 @@ public interface Dao<BO, PK>
     void create(BO obj);
 
     /**
+     * Supprime un objet métier de la source de données
+     * 
+     * @param obj
+     *            L'objet à supprimer
+     */
+    void delete(BO obj);
+
+    /**
+     * Retourne tous les objets métiers d'un type donné de la source de données
+     * 
+     * @return La liste des objets métiers
+     */
+    List<BO> findAll();
+
+    /**
+     * Retourne un objet métier en fonction de sa clé primaire
+     * 
+     * @param id
+     *            Clé primaire
+     * @return L'objet métier trouvé
+     */
+    BO findById(Integer id);
+
+    /**
      * Retourne un objet métier mis à jour
      * 
      * @param obj
@@ -47,12 +55,4 @@ public interface Dao<BO, PK>
      * @return L'objet métier mis à jour
      */
     BO update(BO obj);
-
-    /**
-     * Supprime un objet métier de la source de données
-     * 
-     * @param obj
-     *            L'objet à supprimer
-     */
-    void delete(BO obj);
 }

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author ajc
  */
-public class Client
+public class Client implements BO
 {
 
     private Adresse           adresse;

@@ -8,42 +8,42 @@ import java.util.List;
 /**
  * @author ajc
  */
-public class Vol
+public class Vol implements BO
 {
 
-    /**
-     * id du vol
-     */
-    private int          idVol;
-    /**
-     * date de départ du vol
-     */
-    private Date         dateDepart;
+    private Aeroport     aeroportArrivee;
+    private Aeroport     aeroportDepart;
     /**
      * date d'arrivé du vol
      */
     private Date         dateArrivee;
     /**
-     * heure départ du vol
+     * date de départ du vol
      */
-    private Time         heureDepart;
-    /**
-     * heure d'arrivée du vol
-     */
-    private Time         heureArrivee;
-    private Aeroport     aeroportDepart;
-    private Aeroport     aeroportArrivee;
+    private Date         dateDepart;
     /**
      * liste d'escales par lesquelles on peut passer
      */
     private List<Escale> escales;
+    /**
+     * heure d'arrivée du vol
+     */
+    private Time         heureArrivee;
+    /**
+     * heure départ du vol
+     */
+    private Time         heureDepart;
+    /**
+     * id du vol
+     */
+    private int          idVol;
 
     /**
      * Constructeur de vol
      */
     public Vol()
     {
-        this.escales = new ArrayList<Escale>();
+        this.escales = new ArrayList<>();
     }
 
     /**
@@ -55,47 +55,47 @@ public class Vol
     public Vol(int idVol)
     {
         this.idVol = idVol;
-        this.escales = new ArrayList<Escale>();
+        this.escales = new ArrayList<>();
     }
 
     public Aeroport getAeroportArrivee()
     {
-        return aeroportArrivee;
+        return this.aeroportArrivee;
     }
 
     public Aeroport getAeroportDepart()
     {
-        return aeroportDepart;
+        return this.aeroportDepart;
     }
 
     public Date getDateArrivee()
     {
-        return dateArrivee;
+        return this.dateArrivee;
     }
 
     public Date getDateDepart()
     {
-        return dateDepart;
+        return this.dateDepart;
     }
 
     public List<Escale> getEscales()
     {
-        return escales;
+        return this.escales;
     }
 
     public Time getHeureArrivee()
     {
-        return heureArrivee;
+        return this.heureArrivee;
     }
 
     public Time getHeureDepart()
     {
-        return heureDepart;
+        return this.heureDepart;
     }
 
     public int getIdVol()
     {
-        return idVol;
+        return this.idVol;
     }
 
     public void setAeroportArrivee(Aeroport aeroportArrivee)
@@ -138,13 +138,14 @@ public class Vol
         this.idVol = idVol;
     }
 
+    @Override
     public String toString()
     {
         String reponse = "Le vol  de : " + this.aeroportDepart.getNom() + " qui part le "
                 + this.dateDepart + " à " + this.heureDepart + "\n Arrivera à "
                 + this.aeroportArrivee.getNom() + " à " + this.heureArrivee
                 + "\nIl fera des escales à : ";
-        for (int i = 0; i < escales.size(); i++)
+        for (int i = 0; i < this.escales.size(); i++)
         {
             reponse += "\n" + this.escales.get(i).getAeoroport().getNom() + " le "
                     + this.escales.get(i).getDateArrivee() + " à "

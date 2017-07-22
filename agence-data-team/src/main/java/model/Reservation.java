@@ -2,44 +2,44 @@ package model;
 
 import java.util.Date;
 
-public class Reservation
+public class Reservation implements BO
 {
 
-    /**
-     * Id de la réservation
-     */
-    private int             idRes;
+    private Client          client;
     /**
      * Date de la réservation
      */
     private Date            date;
     /**
-     * Numéro de la réservation
-     */
-    private int             numero;
-    /**
      * Etat de la réservation (ouvert ou fermé)
      */
     private EtatReservation etat;
     /**
-     * id du vol
+     * id du client
      */
-    private int             idVol;
+    private int             idCli;
     /**
      * id du passager
      */
     private int             idPas;
     /**
-     * id du client
+     * Id de la réservation
      */
-    private int             idCli;
+    private int             idRes;
+    /**
+     * id du vol
+     */
+    private int             idVol;
 
+    /**
+     * Numéro de la réservation
+     */
+    private int             numero;
+    private Passager        passager;
     /**
      * Vol associé à la réservation
      */
     private Vol             vol;
-    private Passager        passager;
-    private Client          client;
 
     public Reservation(int idRes)
     {
@@ -48,52 +48,52 @@ public class Reservation
 
     public Client getClient()
     {
-        return client;
+        return this.client;
     }
 
     public Date getDate()
     {
-        return date;
+        return this.date;
     }
 
     public EtatReservation getEtat()
     {
-        return etat;
+        return this.etat;
     }
 
     public int getIdCli()
     {
-        return idCli;
+        return this.idCli;
     }
 
     public int getIdPas()
     {
-        return idPas;
+        return this.idPas;
     }
 
     public int getIdRes()
     {
-        return idRes;
+        return this.idRes;
     }
 
     public int getIdVol()
     {
-        return idVol;
+        return this.idVol;
     }
 
     public int getNumero()
     {
-        return numero;
+        return this.numero;
     }
 
     public Passager getPassager()
     {
-        return passager;
+        return this.passager;
     }
 
     public Vol getVol()
     {
-        return vol;
+        return this.vol;
     }
 
     public void setClient(Client client)
@@ -146,13 +146,14 @@ public class Reservation
         this.vol = vol;
     }
 
+    @Override
     public String toString()
     {
         String reponse = "La Reservation : " + this.numero + " a été effectuée par le Client : \n"
-                + client.getNom() + " " + client.getPrenom() + "\nElle porte sur le vol de "
-                + vol.getAeroportDepart().getNom() + " à " + vol.getAeroportArrivee().getNom()
-                + ".\nElle concerne le passager :\n" + passager.getNom() + " "
-                + passager.getPrenom();
+                + this.client.getNom() + " " + this.client.getPrenom()
+                + "\nElle porte sur le vol de " + this.vol.getAeroportDepart().getNom() + " à "
+                + this.vol.getAeroportArrivee().getNom() + ".\nElle concerne le passager :\n"
+                + this.passager.getNom() + " " + this.passager.getPrenom();
 
         return reponse;
     }

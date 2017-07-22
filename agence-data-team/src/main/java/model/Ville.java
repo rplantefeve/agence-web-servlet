@@ -1,6 +1,6 @@
 package model;
 
-public class Ville
+public class Ville implements BO
 {
 
     /**
@@ -26,7 +26,12 @@ public class Ville
 
     public int getIdVil()
     {
-        return idVil;
+        return this.idVil;
+    }
+
+    public String getNom()
+    {
+        return this.nom;
     }
 
     public void setIdVil(int idVil)
@@ -34,16 +39,12 @@ public class Ville
         this.idVil = idVil;
     }
 
-    public String getNom()
-    {
-        return nom;
-    }
-
     public void setNom(String nom)
     {
         this.nom = nom;
     }
 
+    @Override
     public String toString()
     {
         String reponse = "La Ville : " + this.nom;

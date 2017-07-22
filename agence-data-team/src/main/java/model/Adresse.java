@@ -6,15 +6,15 @@ package model;
 /**
  * @author ajc
  */
-public class Adresse
+public class Adresse implements BO
 {
 
     private String adresse;
 
     private String codePostal;
-    private String ville;
-    private String pays;
     private int    idAdd;
+    private String pays;
+    private String ville;
 
     public Adresse()
     {
@@ -29,27 +29,27 @@ public class Adresse
 
     public String getAdresse()
     {
-        return adresse;
+        return this.adresse;
     }
 
     public String getCodePostal()
     {
-        return codePostal;
+        return this.codePostal;
     }
 
     public int getIdAdd()
     {
-        return idAdd;
+        return this.idAdd;
     }
 
     public String getPays()
     {
-        return pays;
+        return this.pays;
     }
 
     public String getVille()
     {
-        return ville;
+        return this.ville;
     }
 
     public void setAdresse(String adresse)
@@ -80,8 +80,8 @@ public class Adresse
     @Override
     public String toString()
     {
-        return "Adresse [adresse=" + adresse + ", codePostal=" + codePostal + ", ville=" + ville
-                + ", pays=" + pays + "]";
+        return "Adresse [adresse=" + this.adresse + ", codePostal=" + this.codePostal + ", ville="
+                + this.ville + ", pays=" + this.pays + "]";
     }
 
 }

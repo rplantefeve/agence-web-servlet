@@ -24,26 +24,27 @@
     </tr>
 
     <%
-			List<Login> logins = (List<Login>) request.getAttribute("logins");
+        List<Login> logins = (List<Login>) request.getAttribute("logins");
 
-			for (Login login : logins) {
-		%>
+        for (Login login : logins)
+        {
+    %>
 
 
     <tr>
-      <td><%=login.getIdLog()%></td>
+      <td><%=login.getId()%></td>
       <td><%=login.getLogin()%></td>
       <td><%=login.getMotDePasse()%></td>
-      <td><%=login.getAdmin()%></td>
-      <td><a href="login?action=edit&id=<%=login.getIdLog()%>">Editer</a></td>
-      <td><a href="login?action=delete&id=<%=login.getIdLog()%>">Supprimer</a></td>
+      <td><%=(login.getAdmin() == 1) ? "Oui" : "Non" %></td>
+      <td><a href="login?action=edit&id=<%=login.getId()%>">Editer</a></td>
+      <td><a href="login?action=delete&id=<%=login.getId()%>">Supprimer</a></td>
     </tr>
     <%
-			}
-		%>
+        }
+    %>
 
     <tr>
-      <!-- la colonne s'étale sur 8 colonne -->
+      <!-- la colonne s'étale sur 8 colonnes -->
       <td colspan="6"><a href="login?action=add">Ajouter un
           Login</a></td>
     </tr>

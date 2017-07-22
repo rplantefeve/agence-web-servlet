@@ -9,20 +9,20 @@ import java.util.Date;
 /**
  * @author ajc
  */
-public class Escale
+public class Escale implements BO
 {
 
+    private Aeroport aeoroport;
+    private Date     dateArrivee;
+    private Date     dateDepart;
+    private Time     heureArrivee;
+    private Time     heureDepart;
     /**
      * 
      */
     private int      idEscale;
-    private Date     dateDepart;
-    private Date     dateArrivee;
-    private Time     heureDepart;
-    private Time     heureArrivee;
-    private Vol      vol;
 
-    private Aeroport aeoroport;
+    private Vol      vol;
 
     public Escale()
     {
@@ -39,29 +39,44 @@ public class Escale
         this.idEscale = idEscale;
     }
 
+    public Aeroport getAeoroport()
+    {
+        return this.aeoroport;
+    }
+
     public Date getDateArrivee()
     {
-        return dateArrivee;
+        return this.dateArrivee;
     }
 
     public Date getDateDepart()
     {
-        return dateDepart;
+        return this.dateDepart;
     }
 
     public Time getHeureArrivee()
     {
-        return heureArrivee;
+        return this.heureArrivee;
     }
 
     public Time getHeureDepart()
     {
-        return heureDepart;
+        return this.heureDepart;
     }
 
     public int getIdEscale()
     {
-        return idEscale;
+        return this.idEscale;
+    }
+
+    public Vol getVol()
+    {
+        return this.vol;
+    }
+
+    public void setAeoroport(Aeroport aeoroport)
+    {
+        this.aeoroport = aeoroport;
     }
 
     public void setDateArrivee(Date dateArrivee)
@@ -89,32 +104,18 @@ public class Escale
         this.idEscale = idEscale;
     }
 
-    public Vol getVol()
-    {
-        return vol;
-    }
-
     public void setVol(Vol vol)
     {
         this.vol = vol;
     }
 
-    public Aeroport getAeoroport()
-    {
-        return aeoroport;
-    }
-
-    public void setAeoroport(Aeroport aeoroport)
-    {
-        this.aeoroport = aeoroport;
-    }
-
     @Override
     public String toString()
     {
-        return "Escale [dateDepart=" + dateDepart + ", dateArrivee=" + dateArrivee
-                + ", heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + ", idEscale="
-                + idEscale + ", vol=" + vol + ", aeoroport=" + aeoroport + "]";
+        return "Escale [dateDepart=" + this.dateDepart + ", dateArrivee=" + this.dateArrivee
+                + ", heureDepart=" + this.heureDepart + ", heureArrivee=" + this.heureArrivee
+                + ", idEscale=" + this.idEscale + ", vol=" + this.vol + ", aeoroport="
+                + this.aeoroport + "]";
     }
 
 }

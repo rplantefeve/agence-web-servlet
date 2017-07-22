@@ -1,9 +1,8 @@
 package agence.web;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +14,25 @@ import dao.LoginDaoSql;
 import model.Login;
 
 @WebServlet("/login")
-public class LoginController extends HttpServlet
+public class LoginController extends CrudController
 {
-    private LoginDao loginDao = new LoginDaoSql();
+    private final String attributeName;
+    private final String jspEdit;
+    private final String jspListBOs;
+    private final String listAttributeName;
+    private LoginDao     loginDao = new LoginDaoSql();
+
+    /**
+     * 
+     */
+    public LoginController()
+    {
+        this.jspListBOs = "logins.jsp";
+        this.jspEdit = "loginEdit.jsp";
+        this.attributeName = "login";
+        this.listAttributeName = "logins";
+
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,107 +46,62 @@ public class LoginController extends HttpServlet
 
         if (action.equals("list"))
         {
-            // je récupère la liste des BO
-            List<Login> logins = this.loginDao.findAll();
-            // je la charge dans l'obj request
-            request.setAttribute("logins", logins);
-            // je dispache la requête vers la page bos.jsp
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/logins.jsp");
-            // le ctrl fait suivre la requête et la réponse à la jsp
-            rd.forward(request, response);
+            this.listAction(request, response, this.jspListBOs, this.loginDao,
+                    this.listAttributeName);
 
         }
-        else if (action.equals("add"))
+        else
         {
-            request.setAttribute("login", new Login());
-
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/loginEdit.jsp");
-
-            rd.forward(request, response);
-        }
-        else if (action.equals("edit"))
-        {
-            Integer id = Integer.parseInt(request.getParameter("id"));
-
-            Login login = this.loginDao.findById(id);
-
-            request.setAttribute("login", login);
-
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/loginEdit.jsp");
-
-            rd.forward(request, response);
-
-        }
-        else if (action.equals("update"))
-        {
-            String idForm = request.getParameter("id");
-
-            Integer id = null;
-            String login = "";
-            String mdp = "";
-            Integer admin = null;
-
-            try
+            if (action.equals("add"))
             {
-                // si l'id récupéré est non null, on parse
-                if ((idForm != null) && !idForm.equals(""))
+                this.addAction(request, response, new Login(), this.attributeName, this.jspEdit);
+            }
+            else if (action.equals("edit"))
+            {
+                this.editAction(request, response, this.jspEdit, this.loginDao, this.attributeName);
+
+            }
+            else if (action.equals("update"))
+            {
+                Map<String, String[]> params = request.getParameterMap();
+
+                Map<String, Object> parameterValues = this.extractParameterValues(params,
+                        Login.parameterTypes);
+
+                Integer id = null;
+                Login bo = new Login();
+
+                id = this.getBoIdIfSet(params);
+                // si l'id n'est pas null, récupération des infos
+                if (id != null)
                 {
-                    id = Integer.parseInt(idForm);
+                    bo = this.loginDao.findById(id);
                 }
-                login = request.getParameter("login");
-                mdp = request.getParameter("mot de passe");
-                admin = Integer.parseInt(request.getParameter("admin"));
+
+                // hydratation de l'objet métier avec les nouvelles valeurs
+                // je récupère le type du champ
+                bo.setLogin((String) parameterValues.get("login"));
+                bo.setMotDePasse((String) parameterValues.get("motDePasse"));
+                bo.setAdmin((Integer) parameterValues.get("admin"));
+
+                if (id == null)
+                {
+                    this.loginDao.create(bo);
+                }
+                else
+                {
+                    this.loginDao.update(bo);
+                }
+
+                this.listAction(request, response, this.jspListBOs, this.loginDao,
+                        this.listAttributeName);
 
             }
-            catch (Exception e)
+            else if (action.equals("delete"))
             {
-                e.printStackTrace();
+                this.deleteAction(request, response, this.loginDao, this.jspListBOs,
+                        this.listAttributeName);
             }
-
-            Login log = null;
-
-            if (id == null)
-            {
-                log = new Login();
-            }
-            else
-            {
-                log = this.loginDao.findById(id);
-            }
-
-            log.setLogin(login);
-            log.setMotDePasse(mdp);
-            log.setAdmin(admin);
-
-            if (id == null)
-            {
-                this.loginDao.create(log);
-            }
-            else
-            {
-                this.loginDao.update(log);
-            }
-
-            request.setAttribute("logins", this.loginDao.findAll());
-
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/logins.jsp");
-
-            rd.forward(request, response);
-
-        }
-        else if (action.equals("delete"))
-        {
-            Integer id = Integer.parseInt(request.getParameter("id"));
-
-            Login login = this.loginDao.findById(id);
-
-            this.loginDao.delete(login);
-
-            request.setAttribute("logins", this.loginDao.findAll());
-
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/logins.jsp");
-
-            rd.forward(request, response);
         }
     }
 

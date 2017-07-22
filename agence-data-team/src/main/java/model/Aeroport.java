@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Aeroport
+public class Aeroport implements BO
 {
 
     /**
@@ -18,7 +18,7 @@ public class Aeroport
     /**
      * Liste des villes désservies par l'aéroport
      */
-    private List<Ville> villes = new ArrayList<Ville>();
+    private List<Ville> villes = new ArrayList<>();
 
     /**
      * Constructeur de aeroport
@@ -53,17 +53,17 @@ public class Aeroport
 
     public int getIdAer()
     {
-        return idAer;
+        return this.idAer;
     }
 
     public String getNom()
     {
-        return nom;
+        return this.nom;
     }
 
     public List<Ville> getVilles()
     {
-        return villes;
+        return this.villes;
     }
 
     public void setIdAer(int idAer)
@@ -84,7 +84,8 @@ public class Aeroport
     @Override
     public String toString()
     {
-        return "Aeroport [idAer=" + idAer + ", nom=" + nom + ", villes=" + villes + "]";
+        return "Aeroport [idAer=" + this.idAer + ", nom=" + this.nom + ", villes=" + this.villes
+                + "]";
     }
 
 }

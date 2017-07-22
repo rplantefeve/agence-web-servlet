@@ -11,43 +11,55 @@
 </head>
 <body>
   <%
-		model.Login login = (model.Login) request.getAttribute("login");
-		/* Tests */
-		Integer idLog = login.getIdLog();
-		String idLogForm;
-		if (idLog == 0) {
-			idLogForm = "";
-		} else {
-			idLogForm = idLog.toString();
-		}
+      model.Login login = (model.Login) request.getAttribute("login");
+      /* Tests */
+      Integer idLog = login.getId();
+      String idLogForm;
+      if (idLog == 0)
+      {
+          idLogForm = "";
+      }
+      else
+      {
+          idLogForm = idLog.toString();
+      }
 
-		String loginLog = login.getLogin();
-		String loginLogForm;
-		if (loginLog == null) {
-			loginLogForm = "";
-		} else {
-			loginLogForm = loginLog;
-		}
+      String loginLog = login.getLogin();
+      String loginLogForm;
+      if (loginLog == null)
+      {
+          loginLogForm = "";
+      }
+      else
+      {
+          loginLogForm = loginLog;
+      }
 
-		String mdpLog = login.getMotDePasse();
-		String mdpLogForm;
-		if (mdpLog == null) {
-			mdpLogForm = "";
-		} else {
-			mdpLogForm = mdpLog;
-		}
-		Integer adminLog = login.getAdmin();
-		String adminLogForm = adminLog.toString();
-	%>
+      String mdpLog = login.getMotDePasse();
+      String mdpLogForm;
+      if (mdpLog == null)
+      {
+          mdpLogForm = "";
+      }
+      else
+      {
+          mdpLogForm = mdpLog;
+      }
+      Integer adminLog = login.getAdmin();
+      String adminLogForm = adminLog.toString();
+  %>
   <fieldset>
     <legend>
       <%
-				if (idLogForm.equals("")) {
-					out.print("Création");
-				} else {
-					out.print("Edition");
-				}
-			%>
+          if (idLogForm.equals(""))
+          {
+              out.print("Création");
+          }
+          else
+          {
+              out.print("Edition");
+          }
+      %>
       Login
     </legend>
     <form action="login" method="post">
@@ -63,16 +75,22 @@
         </tr>
         <tr>
           <td>Mot de Passe</td>
-          <td><input type="text" name="mot de passe"
+          <td><input type="text" name="motDePasse"
             value="<%=mdpLogForm%>"
           /></td>
         </tr>
         <tr>
-          <td>Admin</td>
-          <td><input type="text" name="admin"
-            value="<%=adminLogForm%>"
-            placeholder="0 pour non, 1 pour oui"
-          /></td>
+          <td>Admin?</td>
+          <td><select name="admin">
+              <option value="0"
+                <%if (adminLogForm.equals("0"))
+                out.print("selected");%>
+              >Non</option>
+              <option value="1"
+                <%if (adminLogForm.equals("1"))
+                out.print("selected");%>
+              >Oui</option>
+          </select></td>
         </tr>
 
         <tr>
