@@ -1,6 +1,6 @@
 package model;
 
-public class Passager implements BO
+public class Passager implements BusinessObject
 {
 
     private Adresse adresse;

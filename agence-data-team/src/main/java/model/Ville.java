@@ -1,6 +1,6 @@
 package model;
 
-public class Ville implements BO
+public class Ville implements BusinessObject
 {
 
     /**

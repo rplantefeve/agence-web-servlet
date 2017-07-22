@@ -1,138 +1,32 @@
 package agence.web;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.AdresseDao;
 import dao.AdresseDaoSql;
 import model.Adresse;
 
 @WebServlet("/adresse")
-public class AdresseController extends HttpServlet
+public class AdresseController extends CrudController<Adresse>
 {
 
-    private AdresseDao adresseDao = new AdresseDaoSql();
+    public AdresseController()
+    {
+        super("adresse");
+        this.dao = new AdresseDaoSql();
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        // on teste si le paramètre action est présent dans l'URL
-        String action = request.getParameter("action") != null ? request.getParameter("action")
-                : "list";
-        // si l'action demandée par le user est la liste des BO
-        if (action.equals("list"))
-        {
-            // je récupère la liste des adresses
-            List<Adresse> adresses = this.adresseDao.findAll();
-            // je la charge dans le request
-            request.setAttribute("adresses", adresses);
-            // je récupère la liste des élèvema page adresses.jsp
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/adresses.jsp");
-            // le ctrl fait suivre la requête et la réponse à la jsp
-            rd.forward(request, response);
-        }
-        else if (action.equals("add"))
-        {
-            request.setAttribute("adresse", new Adresse());
-
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/adresseEdit.jsp");
-
-            rd.forward(request, response);
-        }
-        else if (action.equals("edit"))
-        {
-            Integer id = Integer.parseInt(request.getParameter("id"));
-
-            Adresse adresse = this.adresseDao.findById(id);
-
-            request.setAttribute("adresse", adresse);
-
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/adresseEdit.jsp");
-
-            rd.forward(request, response);
-
-        }
-        else if (action.equals("update"))
-        {
-            String idAddForm = request.getParameter("idAdd");
-
-            Integer id = null;
-            String adresse = "";
-            String codePostal = "";
-            String ville = "";
-            String pays = "";
-
-            try
-            {
-                // si l'id récupéré est non null, on parse
-                if (idAddForm != null)
-                {
-                    id = Integer.parseInt(idAddForm);
-                }
-                adresse = request.getParameter("adresse");
-                codePostal = request.getParameter("codePostal");
-                ville = request.getParameter("ville");
-                pays = request.getParameter("pays");
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-
-            Adresse adresseObj = null;
-
-            if (id == null)
-            {
-                adresseObj = new Adresse();
-            }
-            else
-            {
-                adresseObj = this.adresseDao.findById(id);
-            }
-
-            adresseObj.setAdresse(adresse);
-            adresseObj.setCodePostal(codePostal);
-            adresseObj.setVille(ville);
-            adresseObj.setPays(pays);
-
-            if (id == null)
-            {
-                this.adresseDao.create(adresseObj);
-            }
-            else
-            {
-                this.adresseDao.update(adresseObj);
-            }
-
-            request.setAttribute("adresses", this.adresseDao.findAll());
-
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/adresses.jsp");
-
-            rd.forward(request, response);
-
-        }
-        else if (action.equals("delete"))
-        {
-            Integer id = Integer.parseInt(request.getParameter("id"));
-
-            Adresse adresseObj = this.adresseDao.findById(id);
-
-            this.adresseDao.delete(adresseObj);
-
-            request.setAttribute("adresses", this.adresseDao.findAll());
-
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/adresses.jsp");
-
-            rd.forward(request, response);
-        }
+        this.doGetCrud(request, response, new Adresse(), Adresse.parameterTypes);
     }
 
     /**
@@ -144,6 +38,31 @@ public class AdresseController extends HttpServlet
             throws ServletException, IOException
     {
         this.doGet(request, response);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see agence.web.CrudController#hydrateBO(java.util.Map, java.lang.Object)
+     */
+    @Override
+    protected Adresse hydrateBO(Map<String, Object> parameterValues, Adresse bo)
+    {
+        Adresse newBo;
+        if (bo != null)
+        {
+            newBo = bo;
+        }
+        else
+        {
+            newBo = new Adresse();
+        }
+        newBo.setAdresse((String) parameterValues.get("adresse"));
+        newBo.setCodePostal((String) parameterValues.get("codePostal"));
+        newBo.setVille((String) parameterValues.get("ville"));
+        newBo.setPays((String) parameterValues.get("pays"));
+        return newBo;
+
     }
 
 }

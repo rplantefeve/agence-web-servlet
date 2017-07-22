@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @author ajc
  */
-public class Login implements BO
+public class Login implements BusinessObject
 {
 
     public static final Map<String, Object> parameterTypes;

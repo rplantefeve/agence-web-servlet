@@ -1,6 +1,6 @@
 package model;
 
-public class CompagnieAerienneVol implements BO
+public class CompagnieAerienneVol implements BusinessObject
 {
 
     private CompagnieAerienne compagnieAerienne;

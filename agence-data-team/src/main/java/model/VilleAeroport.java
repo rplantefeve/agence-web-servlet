@@ -1,6 +1,6 @@
 package model;
 
-public class VilleAeroport implements BO
+public class VilleAeroport implements BusinessObject
 {
 
     private Aeroport aeroport;

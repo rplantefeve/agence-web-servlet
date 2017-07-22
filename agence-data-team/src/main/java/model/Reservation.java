@@ -2,7 +2,7 @@ package model;
 
 import java.util.Date;
 
-public class Reservation implements BO
+public class Reservation implements BusinessObject
 {
 
     private Client          client;

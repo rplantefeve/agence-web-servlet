@@ -69,13 +69,13 @@
       <table>
         <tr>
           <td>Login</td>
-          <td><input type="text" name="login"
+          <td><input type="text" name="login" maxlength="50"
             value="<%=loginLogForm%>"
           /></td>
         </tr>
         <tr>
           <td>Mot de Passe</td>
-          <td><input type="text" name="motDePasse"
+          <td><input type="text" name="motDePasse" maxlength="100"
             value="<%=mdpLogForm%>"
           /></td>
         </tr>

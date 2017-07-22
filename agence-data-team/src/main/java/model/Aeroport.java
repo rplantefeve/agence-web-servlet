@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Aeroport implements BO
+public class Aeroport implements BusinessObject
 {
 
     /**

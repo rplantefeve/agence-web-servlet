@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * @author ajc
  */
-public class Escale implements BO
+public class Escale implements BusinessObject
 {
 
     private Aeroport aeoroport;

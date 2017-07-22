@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author ajc
  */
-public class Vol implements BO
+public class Vol implements BusinessObject
 {
 
     private Aeroport     aeroportArrivee;

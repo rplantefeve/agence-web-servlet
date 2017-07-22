@@ -16,78 +16,136 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.Dao;
-import model.BO;
+import model.BusinessObject;
 
 /**
  * @author Seme
+ * @param <T>
  *
  */
-public abstract class CrudController extends HttpServlet
+public abstract class CrudController<BO> extends HttpServlet
 {
+    public static final String editJspSuffix = "Edit.jsp";
+    public static final String listJspSuffix = "s.jsp";
+    protected String           attributeName;
+    protected Dao<BO>          dao;
+    protected String           jspEdit;
+    protected String           jspListBOs;
+
+    protected String           listAttributeName;
+    protected String           nameOfBO;
+
     /**
+     * @param nameOfBO
+     */
+    public CrudController(String nameOfBO)
+    {
+        this(nameOfBO, nameOfBO + editJspSuffix, nameOfBO + listJspSuffix, nameOfBO + "s");
+        this.nameOfBO = nameOfBO;
+    }
+
+    /**
+     * @param attributeName
+     * @param jspEdit
+     * @param jspListBOs
+     * @param listAttributeName
+     */
+    public CrudController(String attributeName, String jspEdit, String jspListBOs,
+            String listAttributeName)
+    {
+        this.attributeName = attributeName;
+        this.jspEdit = jspEdit;
+        this.jspListBOs = jspListBOs;
+        this.listAttributeName = listAttributeName;
+    }
+
+    protected void addAction(HttpServletRequest request, HttpServletResponse response,
+                             BusinessObject bo)
+            throws ServletException, IOException
+    {
+        request.setAttribute(this.attributeName, bo);
+
+        this.forwardRequest(request, response, this.jspEdit);
+    }
+
+    /**
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void deleteAction(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+    {
+        // Parsing de l'id dans la requête
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        // Récupération de l'objet métier
+        BO bo = this.dao.findById(id);
+        // suppression de l'objet métier
+        this.dao.delete(bo);
+        // affichage de la liste
+        this.listAction(request, response);
+    }
+
+    /**
+     * 
      * @param request
      * @param response
      * @param bo
-     * @param attributeName
-     * @param jspEdit
+     * @param parameterTypes
      * @throws ServletException
      * @throws IOException
      */
-    protected void addAction(HttpServletRequest request, HttpServletResponse response, BO bo,
-                             String attributeName, String jspEdit)
+    protected void doGetCrud(HttpServletRequest request, HttpServletResponse response,
+                             BusinessObject bo, Map<String, Object> parameterTypes)
             throws ServletException, IOException
     {
-        request.setAttribute(attributeName, bo);
+        // on teste si le paramètre action est présent dans l'URL
+        String action = request.getParameter("action") != null ? request.getParameter("action")
+                : "list";
+        switch (action)
+        {
+            case "list":
+                // si l'action demandée par le user est la liste des BO
+                this.listAction(request, response);
+                break;
+            case "add":
+                this.addAction(request, response, bo);
+                break;
+            case "edit":
+                this.editAction(request, response);
+                break;
+            case "update":
+                this.updateAction(request, response, parameterTypes);
+                break;
+            case "delete":
+                this.deleteAction(request, response);
+                break;
 
-        this.forwardRequest(request, response, jspEdit);
+            default:
+                break;
+        }
     }
 
     /**
      * 
      * @param request
      * @param response
-     * @param dao
-     * @param listJsp
-     * @param attributeName
      * @throws ServletException
      * @throws IOException
      */
-    protected <BO> void deleteAction(HttpServletRequest request, HttpServletResponse response,
-                                     Dao<BO> dao, String listJsp, String attributeName)
+    protected void editAction(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
         // Parsing de l'id dans la requête
         Integer id = Integer.parseInt(request.getParameter("id"));
         // Récupération de l'objet métier
-        BO bo = dao.findById(id);
-        // suppression de l'objet métier
-        dao.delete(bo);
-        // affichage de la liste
-        this.listAction(request, response, listJsp, dao, attributeName);
-    }
-
-    /**
-     * 
-     * @param request
-     * @param response
-     * @param jspEdit
-     * @param dao
-     * @param attributeName
-     * @throws ServletException
-     * @throws IOException
-     */
-    protected <BO> void editAction(HttpServletRequest request, HttpServletResponse response,
-                                   String jspEdit, Dao<BO> dao, String attributeName)
-            throws ServletException, IOException
-    {
-        // Parsing de l'id dans la requête
-        Integer id = Integer.parseInt(request.getParameter("id"));
-        // Récupération de l'objet métier
-        BO login = dao.findById(id);
+        BO login = this.dao.findById(id);
         // le BO est injecté dans la requête
-        request.setAttribute(attributeName, login);
+        request.setAttribute(this.attributeName, login);
         // Transmission vers la JSP
-        this.forwardRequest(request, response, jspEdit);
+        this.forwardRequest(request, response, this.jspEdit);
     }
 
     /**
@@ -179,35 +237,81 @@ public abstract class CrudController extends HttpServlet
      */
     private String getParameterValue(Map<String, String[]> params, String parameterName)
     {
-        return params.get(parameterName)[0];
+        String[] values = params.get(parameterName);
+        if (values != null)
+        {
+            return params.get(parameterName)[0];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * 
+     * @param parameterValues
+     * @param bo
+     */
+    protected abstract BO hydrateBO(Map<String, Object> parameterValues, BO bo);
+
+    /**
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void listAction(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+    {
+        // je récupère la liste des BO
+        List<BO> bos = this.dao.findAll();
+        // je la charge dans l'obj request
+        request.setAttribute(this.listAttributeName, bos);
+        // Transmission
+        this.forwardRequest(request, response, this.jspListBOs);
     }
 
     /**
      * 
      * @param request
-     *            La requête d'origine
      * @param response
-     *            La réponse à renvoyer
-     * @param jspListBOs
-     *            Le nom de la page JSP d'affichage de la liste
-     * @param dao
-     *            Le DAO qui servira à récupérer la liste d'objets métiers
-     * @param attributeName
-     *            Le nom de l'attribut de la requête qui sera injecté dans la
-     *            JSP
+     * @param parameterTypes
+     * @param bo
      * @throws ServletException
      * @throws IOException
      */
-    protected <BO> void listAction(HttpServletRequest request, HttpServletResponse response,
-                                   String jspListBOs, Dao<BO> dao, String attributeName)
+    protected void updateAction(HttpServletRequest request, HttpServletResponse response,
+                                Map<String, Object> parameterTypes)
             throws ServletException, IOException
     {
-        // je récupère la liste des BO
-        List<BO> bos = dao.findAll();
-        // je la charge dans l'obj request
-        request.setAttribute(attributeName, bos);
-        // Transmission
-        this.forwardRequest(request, response, jspListBOs);
+        Map<String, String[]> params = request.getParameterMap();
+
+        Map<String, Object> parameterValues = this.extractParameterValues(params, parameterTypes);
+
+        BO bo = null;
+        Integer id = null;
+
+        id = this.getBoIdIfSet(params);
+        // si l'id n'est pas null, récupération des infos
+        if (id != null)
+        {
+            bo = this.dao.findById(id);
+        }
+
+        bo = this.hydrateBO(parameterValues, bo);
+
+        if (id == null)
+        {
+            this.dao.create(bo);
+        }
+        else
+        {
+            this.dao.update(bo);
+        }
+
+        this.listAction(request, response);
     }
 
 }
