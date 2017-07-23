@@ -10,8 +10,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Modification des informations du client</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
+  <%@include file="../include/menu.jsp"%>
   <%
       // récup. de l'objet Client
       Client client = (Client) request.getAttribute("client");

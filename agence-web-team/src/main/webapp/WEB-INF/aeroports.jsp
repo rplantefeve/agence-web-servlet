@@ -8,14 +8,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Liste des aéroports</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
-  <table border="1">
+  <%@include file="../include/menu.jsp"%>
+  <table class="std">
     <tr>
-      <td>Id</td>
-      <td>Nom</td>
-      <td>Edition</td>
-      <td>Suppression</td>
+      <th>Id</th>
+      <th>Nom</th>
+      <th colspan="2">Actions</th>
     </tr>
     <%
         List<Aeroport> aeroports = (List<Aeroport>) request.getAttribute("aeroports");
@@ -36,9 +37,12 @@
     <%
         }
     %>
-    <tr>
-      <td colspan="7"><a href="aeroport?action=add">Ajouter un
-          aéroport</a></td>
+    <tr class="new">
+      <td colspan="7">
+        <a href="aeroport?action=add">
+          <button class="add">Ajouter un aéroport</button>
+        </a>
+      </td>
     </tr>
   </table>
 </body>

@@ -11,8 +11,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Edition des vols</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
+  <%@include file="../include/menu.jsp"%>
   <%
 	    Vol vol = (Vol) request.getAttribute("vol");
 	    /* Tests */

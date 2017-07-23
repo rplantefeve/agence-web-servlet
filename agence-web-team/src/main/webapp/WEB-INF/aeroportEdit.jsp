@@ -6,8 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Edition de l'aéroport</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
+  <%@include file="../include/menu.jsp"%>
   <%
       model.Aeroport aeroport = (model.Aeroport) request.getAttribute("aeroport");
       /* Tests */

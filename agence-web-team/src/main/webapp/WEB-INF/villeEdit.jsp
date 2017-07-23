@@ -7,8 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Edition de la ville</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
+  <%@include file="../include/menu.jsp"%>
   <%
 	    model.Ville ville = (model.Ville) request.getAttribute("ville");
 	    /* Tests */

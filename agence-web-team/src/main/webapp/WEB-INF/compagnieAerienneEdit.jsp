@@ -10,9 +10,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Edition Compagnie Aerienne</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
-
+  <%@include file="../include/menu.jsp"%>
   <%
       model.CompagnieAerienne objCompagnieAerienne = (model.CompagnieAerienne) request
               .getAttribute("CompagnieAerienne");
