@@ -8,15 +8,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Liste des liaisons CompagnieAerienne/Vol</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
-  <table border="1">
+  <%@include file="../include/menu.jsp"%>
+  <table class="std">
     <tr>
-      <td>Id</td>
-      <td>Numero</td>
-      <td>Compagnie</td>
-      <td>Vol</td>
-      <td>Ouvert</td>
+      <th>Id</th>
+      <th>Numero</th>
+      <th>Compagnie</th>
+      <th>Vol</th>
+      <th>Ouvert</th>
+      <th colspan="2">Actions</th>
     </tr>
 
     <%
@@ -65,9 +68,10 @@
         }
     %>
 
-    <tr>
-      <td colspan="7"><a href="compagnieAerienneVol?action=add">Ajouter
-          une liaison Compagnie / Vol</a></td>
+    <tr class="new">
+      <td colspan="7"><a href="compagnieAerienneVol?action=add"><button
+            class="add"
+          >Ajouter une liaison Compagnie / Vol</button></a></td>
     </tr>
   </table>
 </body>

@@ -8,20 +8,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Liste des clients</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
-  <table border="1">
+  <%@include file="../include/menu.jsp"%>
+  <table class="std">
     <tr>
-      <td>Id</td>
-      <td>Nom</td>
-      <td>Prénom</td>
-      <td>Téléphone</td>
-      <td>Fax</td>
-      <td>Mail</td>
-      <td>Siret</td>
-      <td>Id Adresse</td>
-      <td>Edition</td>
-      <td>Suppression</td>
+      <th>Id</th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Téléphone</th>
+      <th>Fax</th>
+      <th>Mail</th>
+      <th>Siret</th>
+      <th>Id Adresse</th>
+      <th colspan="2">Actions</th>
     </tr>
     <%
         List<Client> clients = (List<Client>) request.getAttribute("clients");
@@ -67,9 +68,10 @@
         }
     %>
 
-    <tr>
-      <td colspan="10"><a href="client?action=add">Ajouter un
-          client</a></td>
+    <tr class="new">
+      <td colspan="10"><a href="client?action=add">
+          <button class="add">Ajouter un client</button>
+      </a></td>
     </tr>
   </table>
 </body>

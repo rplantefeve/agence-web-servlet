@@ -8,8 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Edition de la liaison</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
+  <%@include file="../include/menu.jsp"%>
   <%
       model.CompagnieAerienneVol compagnieAerienneVol = (model.CompagnieAerienneVol) request
               .getAttribute("compagnieAerienneVol");

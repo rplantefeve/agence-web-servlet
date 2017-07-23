@@ -7,8 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Edition de l'adresse</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
+  <%@include file="../include/menu.jsp"%>
   <%
       Adresse adresse = (Adresse) request.getAttribute("adresse");
       /* Tests */

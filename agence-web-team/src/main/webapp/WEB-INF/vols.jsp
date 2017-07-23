@@ -8,65 +8,100 @@
 <head>
 <meta charset="UTF-8">
 <title>Liste des vols</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
-
-  <table border="1">
+  <%@include file="../include/menu.jsp"%>
+  <table class="std">
     <tr>
-      <td>IdVol</td>
-      <td>dateDepart</td>
-      <td>dateArrivee</td>
-      <td>heureDepart</td>
-      <td>heureArrivee</td>
-      <td>aeroportDepart</td>
-      <td>aeroportArrivee</td>
-      <td>Edititer</td>
-      <td>Supprimer</td>
+      <th>IdVol</th>
+      <th>Date de départ</th>
+      <th>Date d'arrivée</th>
+      <th>Heure de départ</th>
+      <th>Heure d'arrivée</th>
+      <th>Aéroport de départ</th>
+      <th>Aéroport d'arrivée</th>
+      <th colspan="2">Actions</th>
     </tr>
-
     <%
-			List<Vol> vols = (List<Vol>)request.getAttribute("vol");
-			for(Vol vol : vols) {
-		%>
-
-
+        List<Vol> vols = (List<Vol>) request.getAttribute("vol");
+        for (Vol vol : vols)
+        {
+    %>
     <tr>
       <td>
-        <% out.print(vol.getIdVol()); %>
+        <%
+            out.print(vol.getIdVol());
+        %>
       </td>
       <td>
-        <% out.print(vol.getDateDepart()); %>
+        <%
+            out.print(vol.getDateDepart());
+        %>
       </td>
       <td>
-        <% out.print(vol.getDateArrivee()); %>
+        <%
+            out.print(vol.getDateArrivee());
+        %>
       </td>
       <td>
-        <% out.print(vol.getHeureDepart()); %>
+        <%
+            out.print(vol.getHeureDepart());
+        %>
       </td>
       <td>
-        <% out.print(vol.getHeureArrivee()); %>
+        <%
+            out.print(vol.getHeureArrivee());
+        %>
       </td>
       <td>
-        <% if (vol.getAeroportDepart()!= null) {
-					out.print(vol.getAeroportDepart().getNom());
-				} else {
-					out.print("Non renseignée");
-				} %>
+        <%
+            if (vol.getAeroportDepart() != null)
+                {
+                    out.print(vol.getAeroportDepart().getNom());
+                }
+                else
+                {
+                    out.print("Non renseignée");
+                }
+        %>
       </td>
       <td>
-        <% if (vol.getAeroportArrivee()!= null) {
-					out.print(vol.getAeroportArrivee().getNom());
-				} else {
-					out.print("Non renseignée");
-				} %>
+        <%
+            if (vol.getAeroportArrivee() != null)
+                {
+                    out.print(vol.getAeroportArrivee().getNom());
+                }
+                else
+                {
+                    out.print("Non renseignée");
+                }
+        %>
       </td>
-      <td><a href="vol?action=edit&idVol=<%=vol.getIdVol() %>">Editer</a></td>
-      <td><a href="vol?action=delete&idVol=<%=vol.getIdVol() %>">Supprimer</a></td>
+      <td>
+        <form name="modify" action="vol" method="GET">
+          <input name="action" value="edit" type="hidden" /> <input
+            name="idVol" value="<%=vol.getIdVol()%>" type="hidden"
+          /> <input type="submit" id="modify" value="" />
+        </form>
+      </td>
+      <td>
+        <form name="delete" action="vol" method="get">
+          <input name="action" value="delete" type="hidden" /> <input
+            name="idVol" value="<%=vol.getIdVol()%>" type="hidden"
+          /> <input type="image" src="./images/deleteIcon.png"
+            alt="Delete"
+          />
+        </form>
+      </td>
     </tr>
-    <% } %>
-
-    <tr>
-      <td colspan="9"><a href="vol?action=add">Ajouter un vol</a></td>
+    <%
+        }
+    %>
+    <tr class="new">
+      <td colspan="9"><a href="vol?action=add"><button
+            class="add"
+          >Ajouter un vol</button></a></td>
     </tr>
   </table>
 

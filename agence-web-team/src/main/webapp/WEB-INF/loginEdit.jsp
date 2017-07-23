@@ -8,8 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Creation Logins</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
+  <%@include file="../include/menu.jsp"%>
   <%
       model.Login login = (model.Login) request.getAttribute("login");
       /* Tests */
