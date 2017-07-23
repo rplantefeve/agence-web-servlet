@@ -1,14 +1,33 @@
 package model;
 
-public class CompagnieAerienneVol
+import java.util.HashMap;
+import java.util.Map;
+
+public class CompagnieAerienneVol implements BusinessObject
 {
+    public static Map<String, Object> parameterTypes;
+    /**
+     * Initialisation de la HashMap (elle doit se faire en static, une seule
+     * fois)
+     */
+    static
+    {
+        /*
+         * Ce genre de chose pourrait être amélioré avec l'API Reflection
+         * http://docs.oracle.com/javase/6/docs/technotes/guides/reflection/
+         * index.html
+         */
+        parameterTypes = new HashMap<>();
+        parameterTypes.put("numero", String.class);
+        parameterTypes.put("ouvert", Short.class);
+    }
 
-    private int               id;
     private CompagnieAerienne compagnieAerienne;
-    private Vol               vol;
+    private int               id;
     private String            numero;
-
     private short             ouvert;
+
+    private Vol               vol;
 
     public CompagnieAerienneVol()
     {
@@ -21,34 +40,34 @@ public class CompagnieAerienneVol
         this.ouvert = ouvert;
     }
 
+    public CompagnieAerienne getCompagnieAerienne()
+    {
+        return this.compagnieAerienne;
+    }
+
     public int getId()
     {
-        return id;
+        return this.id;
     }
 
     public String getNumero()
     {
-        return numero;
+        return this.numero;
     }
 
     public short getOuvert()
     {
-        return ouvert;
+        return this.ouvert;
     }
 
     public Vol getVol()
     {
-        return vol;
+        return this.vol;
     }
 
     public short isOuvert()
     {
-        return ouvert;
-    }
-
-    public CompagnieAerienne getCompagnieAerienne()
-    {
-        return compagnieAerienne;
+        return this.ouvert;
     }
 
     public void setCompagnieAerienne(CompagnieAerienne compagnieAerienne)
@@ -79,8 +98,9 @@ public class CompagnieAerienneVol
     @Override
     public String toString()
     {
-        return "CompagnieAerienneVol [id=" + id + " compagnieAerienne=" + compagnieAerienne
-                + ", vol=" + vol + ", numero=" + numero + ", ouvert=" + ouvert + "]";
+        return "CompagnieAerienneVol [id=" + this.id + " compagnieAerienne="
+                + this.compagnieAerienne + ", vol=" + this.vol + ", numero=" + this.numero
+                + ", ouvert=" + this.ouvert + "]";
     }
 
 }

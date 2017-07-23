@@ -8,9 +8,7 @@ import model.Client;
 /**
  * @author ajc
  */
-public interface ClientDao extends Dao<Client, Integer>
+public interface ClientDao extends Dao<Client>
 {
-
-    public Client findById(Integer idCli);
 
 }

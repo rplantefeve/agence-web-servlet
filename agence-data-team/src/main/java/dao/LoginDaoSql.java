@@ -48,7 +48,7 @@ public class LoginDaoSql implements LoginDao
             PreparedStatement requete = this.connexion.prepareStatement(
                     "INSERT INTO login (id, login, motDePasse, admin) VALUES(?,?,?,?)");
 
-            requete.setLong(1, login.getIdLog());
+            requete.setLong(1, login.getId());
             requete.setString(2, login.getLogin());
             requete.setString(3, login.getMotDePasse());
             requete.setLong(4, login.getAdmin());
@@ -70,7 +70,7 @@ public class LoginDaoSql implements LoginDao
 
             PreparedStatement requete = this.connexion
                     .prepareStatement("delete from login where id = ?");
-            requete.setLong(1, login.getIdLog());
+            requete.setLong(1, login.getId());
 
             requete.executeUpdate();
 
@@ -180,7 +180,7 @@ public class LoginDaoSql implements LoginDao
             requete.setString(1, login.getLogin());
             requete.setString(2, login.getMotDePasse());
             requete.setLong(3, login.getAdmin());
-            requete.setLong(4, login.getIdLog());
+            requete.setLong(4, login.getId());
 
             requete.executeUpdate();
 

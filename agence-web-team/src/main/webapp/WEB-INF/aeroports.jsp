@@ -10,48 +10,36 @@
 <title>Liste des aéroports</title>
 </head>
 <body>
-
   <table border="1">
     <tr>
       <td>Id</td>
       <td>Nom</td>
       <td>Edition</td>
       <td>Suppression</td>
-
     </tr>
-
     <%
-			List<Aeroport> aeroports = (List<Aeroport>) request.getAttribute("aeroport");
+        List<Aeroport> aeroports = (List<Aeroport>) request.getAttribute("aeroports");
 
-			for (Aeroport aeroport : aeroports) {
-		%>
-
-
-
-
+        for (Aeroport aeroport : aeroports)
+        {
+    %>
     <tr>
       <td><%=aeroport.getIdAer()%></td>
-
-
       <td><%=aeroport.getNom()%></td>
-
-
       <td><a
-        href="aeroport?action=edit&idAero=<%=aeroport.getIdAer()%>"
+        href="aeroport?action=edit&id=<%=aeroport.getIdAer()%>"
       >Editer</a></td>
       <td><a
-        href="aeroport?action=delete&idAero=<%=aeroport.getIdAer()%>"
+        href="aeroport?action=delete&id=<%=aeroport.getIdAer()%>"
       >Supprimer</a></td>
     </tr>
     <%
-			}
-		%>
-
+        }
+    %>
     <tr>
       <td colspan="7"><a href="aeroport?action=add">Ajouter un
           aéroport</a></td>
     </tr>
   </table>
-
 </body>
 </html>
