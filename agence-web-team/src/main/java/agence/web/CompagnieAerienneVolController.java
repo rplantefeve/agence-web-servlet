@@ -43,7 +43,8 @@ public class CompagnieAerienneVolController extends HttpServlet
             // je la charge dans l'objet request
             request.setAttribute("compagnieAerienneVol", ListCompagnieAerienneVol);
             // je prépare le dispatche de la requête vers la page BOs.jsp
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienneVol.jsp");
+            RequestDispatcher rd = request
+                    .getRequestDispatcher("WEB-INF/compagnieAerienneVols.jsp");
             // le controller fait suivre la requête et la réponse à la jsp
             rd.forward(request, response);
         }
@@ -51,7 +52,8 @@ public class CompagnieAerienneVolController extends HttpServlet
         {
             request.setAttribute("compagnieAerienneVol", new CompagnieAerienneVol());
 
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienneVolEdit.jsp");
+            RequestDispatcher rd = request
+                    .getRequestDispatcher("WEB-INF/compagnieAerienneVolEdit.jsp");
 
             rd.forward(request, response);
         }
@@ -63,7 +65,8 @@ public class CompagnieAerienneVolController extends HttpServlet
 
             request.setAttribute("compagnieAerienneVol", compagnieAerienneVol);
 
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienneVolEdit.jsp");
+            RequestDispatcher rd = request
+                    .getRequestDispatcher("WEB-INF/compagnieAerienneVolEdit.jsp");
 
             rd.forward(request, response);
 
@@ -123,7 +126,8 @@ public class CompagnieAerienneVolController extends HttpServlet
 
             request.setAttribute("compagnieAerienneVol", this.compagnieAerienneVolDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienneVol.jsp");
+            RequestDispatcher rd = request
+                    .getRequestDispatcher("WEB-INF/compagnieAerienneVols.jsp");
 
             rd.forward(request, response);
 
@@ -138,7 +142,8 @@ public class CompagnieAerienneVolController extends HttpServlet
 
             request.setAttribute("compagnieAerienneVol", this.compagnieAerienneVolDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienneVol.jsp");
+            RequestDispatcher rd = request
+                    .getRequestDispatcher("WEB-INF/compagnieAerienneVols.jsp");
 
             rd.forward(request, response);
         }

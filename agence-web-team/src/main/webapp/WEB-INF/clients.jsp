@@ -23,31 +23,49 @@
       <td>Edition</td>
       <td>Suppression</td>
     </tr>
-
     <%
-			List<Client> clients = (List<Client>)request.getAttribute("clients");
-		
-			for(Client client : clients) {
-		%>
+        List<Client> clients = (List<Client>) request.getAttribute("clients");
 
-
+        for (Client client : clients)
+        {
+    %>
     <tr>
-      <td><%=client.getIdCli() %></td>
-      <td><%=client.getNom() %></td>
+      <td><%=client.getIdCli()%></td>
+      <td><%=client.getNom()%></td>
       <td>
-        <%if (client.getPrenom()!=null) {out.print(client.getPrenom());} else {out.print("N/A");}%>
+        <%
+            if (client.getPrenom() != null)
+                {
+                    out.print(client.getPrenom());
+                }
+                else
+                {
+                    out.print("N/A");
+                }
+        %>
       </td>
-      <td><%=client.getNumeroTel() %></td>
-      <td><%=client.getNumeroFax() %></td>
-      <td><%=client.getEmail() %></td>
+      <td><%=client.getNumeroTel()%></td>
+      <td><%=client.getNumeroFax()%></td>
+      <td><%=client.getEmail()%></td>
       <td>
-        <%if (client.getSiret() != null) {out.print(client.getSiret());} else {out.print("N/A");}%>
+        <%
+            if (client.getSiret() != null)
+                {
+                    out.print(client.getSiret());
+                }
+                else
+                {
+                    out.print("N/A");
+                }
+        %>
       </td>
-      <td><%=client.getAdresse().getIdAdd() %></td>
-      <td><a href="client?action=edit&id=<%=client.getIdCli() %>">Editer</a></td>
-      <td><a href="client?action=delete&id=<%=client.getIdCli() %>">Supprimer</a></td>
+      <td><%=client.getAdresse().getIdAdd()%></td>
+      <td><a href="client?action=edit&id=<%=client.getIdCli()%>">Editer</a></td>
+      <td><a href="client?action=delete&id=<%=client.getIdCli()%>">Supprimer</a></td>
     </tr>
-    <% } %>
+    <%
+        }
+    %>
 
     <tr>
       <td colspan="10"><a href="client?action=add">Ajouter un

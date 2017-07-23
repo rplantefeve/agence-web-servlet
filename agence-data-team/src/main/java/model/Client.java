@@ -32,6 +32,8 @@ public class Client implements BusinessObject
         parameterTypes.put("numeroTel", String.class);
         parameterTypes.put("prenom", String.class);
         parameterTypes.put("siret", String.class);
+        parameterTypes.put("idAdd", Integer.class);
+        // parameterTypes.put("idLog", Integer.class);
     }
 
     private Adresse           adresse;

@@ -42,7 +42,7 @@ public class VolController extends HttpServlet
             // je la charge dans l'objet request
             request.setAttribute("vol", vols);
             // je dispatche la requête vers ma page elève.jsp
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/vol.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/vols.jsp");
             // le ctrl fait suivre la requête et la réponse à la jsp
             rd.forward(request, response);
         }
@@ -150,7 +150,7 @@ public class VolController extends HttpServlet
 
             request.setAttribute("vol", this.volDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/vol.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/vols.jsp");
 
             rd.forward(request, response);
 
@@ -165,7 +165,7 @@ public class VolController extends HttpServlet
 
             request.setAttribute("vol", this.volDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/vol.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/vols.jsp");
 
             rd.forward(request, response);
         }

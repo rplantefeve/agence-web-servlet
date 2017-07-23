@@ -42,7 +42,7 @@ public class CompagnieAerienneController extends HttpServlet
             // je la charge dans l'objet request
             request.setAttribute("CompagnieAerienne", listCompagnieAerienne);
             // je prépare le dispatche la requete vers la page BOs.jsp
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienne.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAeriennes.jsp");
             // le ctrl fait suivre la requete et la réponse à la jsp
             rd.forward(request, response);
         }
@@ -113,7 +113,7 @@ public class CompagnieAerienneController extends HttpServlet
 
             request.setAttribute("CompagnieAerienne", this.compagnieAerienneDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienne.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAeriennes.jsp");
 
             rd.forward(request, response);
 
@@ -128,7 +128,7 @@ public class CompagnieAerienneController extends HttpServlet
 
             request.setAttribute("CompagnieAerienne", this.compagnieAerienneDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAerienne.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/compagnieAeriennes.jsp");
 
             rd.forward(request, response);
         }

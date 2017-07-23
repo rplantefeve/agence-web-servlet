@@ -1,4 +1,7 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="model.Adresse"%>
+<%@page import="model.Client"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"
 %>
@@ -10,92 +13,72 @@
 </head>
 <body>
   <%
-      model.Client client = (model.Client) request.getAttribute("client");
-      /* Tests */
-      Integer idClient = client.getIdCli();
-      String idClientForm;
-      if (idClient == 0)
-      {
-          idClientForm = "";
-      }
-      else
-      {
-          idClientForm = idClient.toString();
-      }
-
-      String nomClient = client.getNom();
-      String nomClientForm;
-      if (nomClient == null)
-      {
-          nomClientForm = "";
-      }
-      else
-      {
-          nomClientForm = nomClient;
-      }
-
-      String prenomClient = client.getPrenom();
-      String prenomClientForm;
-      if (nomClient == null)
-      {
-          prenomClientForm = "";
-      }
-      else
-      {
-          prenomClientForm = prenomClient;
-      }
-      String numTel = client.getNumeroTel();
-      String numTelForm;
-      if (numTel == null)
-      {
-          numTelForm = "";
-      }
-      else
-      {
-          numTelForm = numTel.toString();
-      }
-
-      String numFax = client.getNumeroFax();
-      String numFaxForm;
-      if (numFax == null)
-      {
-          numFaxForm = "";
-      }
-      else
-      {
-          numFaxForm = numFax.toString();
-      }
-
-      String eMail = client.getEmail();
-      String eMailForm;
-      if (eMail == null)
-      {
-          eMailForm = "";
-      }
-      else
-      {
-          eMailForm = eMail.toString();
-      }
-
-      String siret = client.getSiret();
-      String siretForm;
-      if (siret == null)
-      {
-          siretForm = "";
-      }
-      else
-      {
-          siretForm = siret.toString();
-      }
-
-      Adresse adresse = client.getAdresse();
+      // récup. de l'objet Client
+      Client client = (Client) request.getAttribute("client");
+      /* Init. des chaînes du formulaire */
+      String idClientForm = "";
+      String nomClientForm = "";
+      String prenomClientForm = "";
+      String numTelForm = "";
+      String numFaxForm = "";
+      String eMailForm = "";
+      String siretForm = "";
       String idAddForm = "";
-      // si l'adresse n'est pas null
-      if (adresse != null)
+      /* Tests */
+      // si le client n'est pas null
+      if (client != null)
       {
-          idAddForm = Integer.toString(client.getAdresse().getIdAdd());
-      }
+          Integer idClient = client.getIdCli();
+          if (idClient != 0)
+          {
+              idClientForm = idClient.toString();
+          }
 
+          String nomClient = client.getNom();
+          if (nomClient != null)
+          {
+              nomClientForm = nomClient;
+          }
+
+          String prenomClient = client.getPrenom();
+          if (nomClient != null)
+          {
+              prenomClientForm = prenomClient;
+          }
+
+          String numTel = client.getNumeroTel();
+          if (numTel != null)
+          {
+              numTelForm = numTel.toString();
+          }
+
+          String numFax = client.getNumeroFax();
+          if (numFax != null)
+          {
+              numFaxForm = numFax.toString();
+          }
+
+          String eMail = client.getEmail();
+
+          if (eMail != null)
+          {
+              eMailForm = eMail.toString();
+          }
+
+          String siret = client.getSiret();
+
+          if (siret != null)
+          {
+              siretForm = siret.toString();
+          }
+
+          Adresse adresse = client.getAdresse();
+          // si l'adresse n'est pas null
+          if (adresse != null)
+          {
+              idAddForm = Integer.toString(client.getAdresse().getIdAdd());
+          }
+      }
   %>
   <fieldset>
     <legend>
@@ -111,6 +94,25 @@
       %>
       du client
     </legend>
+    <%
+        Object errors = request.getAttribute("errors");
+        if (errors != null)
+        {
+            List<String> errorMessages = (List<String>) errors;
+            // s'il y a des messages d'erreurs
+            if (errorMessages.size() > 0)
+            {
+                out.print("<p>");
+                // boucle d'affichage des erreurs
+                for (String message : errorMessages)
+                {
+                    out.print(message);
+                    out.print("<br/>");
+                }
+                out.print("</p>");
+            }
+        }
+    %>
     <form action="client" method="post">
       <input type="hidden" name="action" value="update" />
       <table>
@@ -138,19 +140,19 @@
         </tr>
         <tr>
           <td>Numéro de téléphone</td>
-          <td><input type="text" name="numTel"
+          <td><input type="text" name="numeroTel"
             value="<%=numTelForm%>"
           /></td>
         </tr>
         <tr>
           <td>Numéro de fax</td>
-          <td><input type="text" name="numFax"
+          <td><input type="text" name="numeroFax"
             value="<%=numFaxForm%>"
           /></td>
         </tr>
         <tr>
-          <td>eMail</td>
-          <td><input type="text" name="eMail"
+          <td>Courriel</td>
+          <td><input type="text" name="email"
             value="<%=eMailForm%>"
           /></td>
         </tr>

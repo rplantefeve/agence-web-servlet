@@ -4,6 +4,7 @@
 package agence.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import agence.web.exception.UnknownBusinessObject;
+import agence.web.exception.WrongDataException;
 import dao.Dao;
 import model.BusinessObject;
 
@@ -29,9 +32,9 @@ public abstract class CrudController<BO> extends HttpServlet
     public static final String listJspSuffix = "s.jsp";
     protected String           attributeName;
     protected Dao<BO>          dao;
+    protected List<String>     errorMessages;
     protected String           jspEdit;
     protected String           jspListBOs;
-
     protected String           listAttributeName;
     protected String           nameOfBO;
 
@@ -42,6 +45,7 @@ public abstract class CrudController<BO> extends HttpServlet
     {
         this(nameOfBO, nameOfBO + editJspSuffix, nameOfBO + listJspSuffix, nameOfBO + "s");
         this.nameOfBO = nameOfBO;
+        this.errorMessages = new ArrayList<>();
     }
 
     /**
@@ -64,6 +68,8 @@ public abstract class CrudController<BO> extends HttpServlet
             throws ServletException, IOException
     {
         request.setAttribute(this.attributeName, bo);
+        // ajout des éventuels messages d'erreurs
+        request.setAttribute("errors", this.errorMessages);
 
         this.forwardRequest(request, response, this.jspEdit);
     }
@@ -149,44 +155,60 @@ public abstract class CrudController<BO> extends HttpServlet
     }
 
     /**
+     * 
      * @param params
      * @param parameterTypes
      * @return
+     * @throws WrongDataException
      */
     protected Map<String, Object> extractParameterValues(Map<String, String[]> params,
                                                          Map<String, Object> parameterTypes)
+            throws WrongDataException
     {
         Map<String, Object> parameterValues = new HashMap<>();
-
+        boolean wasThereAnyError = false;
         // Parcours de tous les types de paramètres attendus
         for (Entry<String, Object> entry : parameterTypes.entrySet())
         {
             String key = entry.getKey();
             Object value = entry.getValue();
             Object newValue = null;
-
-            /*
-             * Gérer les différents cas
-             */
-            // si le paramètre est un entier
-            if (value == Integer.class)
+            try
             {
-                // il faut parser
-                newValue = Integer.parseInt(this.getParameterValue(params, key));
+                /*
+                 * Gérer les différents cas
+                 */
+                // si le paramètre est un entier
+                if (value == Integer.class)
+                {
+                    // il faut parser
+                    newValue = Integer.parseInt(this.getParameterValue(params, key));
 
+                }
+                else if (value == Short.class)
+                {
+                    // il faut parser
+                    newValue = Short.parseShort(this.getParameterValue(params, key));
+                }
+                else
+                {
+                    newValue = this.getParameterValue(params, key);
+                }
+                // ajout à la liste des nouvelles valeurs
+                parameterValues.put(key, newValue);
             }
-            else if (value == Short.class)
+            catch (NumberFormatException e)
             {
-                // il faut parser
-                newValue = Short.parseShort(this.getParameterValue(params, key));
+                wasThereAnyError = true;
+                this.errorMessages.add("Format de donnée incorrect : " + key + " = "
+                        + this.getParameterValue(params, key));
             }
-            else
-            {
-                newValue = this.getParameterValue(params, key);
-            }
-            // ajout à la liste des nouvelles valeurs
-            parameterValues.put(key, newValue);
 
+        }
+
+        if (wasThereAnyError)
+        {
+            throw new WrongDataException();
         }
 
         return parameterValues;
@@ -252,8 +274,21 @@ public abstract class CrudController<BO> extends HttpServlet
      * 
      * @param parameterValues
      * @param bo
+     * @throws UnknownBusinessObject
      */
-    protected abstract BO hydrateBO(Map<String, Object> parameterValues, BO bo);
+    protected abstract BO hydrateBO(Map<String, Object> parameterValues, BO bo)
+            throws UnknownBusinessObject;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.servlet.GenericServlet#init()
+     */
+    @Override
+    public void init() throws ServletException
+    {
+        this.errorMessages = new ArrayList<>();
+    }
 
     /**
      * 
@@ -265,6 +300,8 @@ public abstract class CrudController<BO> extends HttpServlet
     protected void listAction(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
+        // réinit des erreurs
+        this.errorMessages = new ArrayList<>();
         // je récupère la liste des BO
         List<BO> bos = this.dao.findAll();
         // je la charge dans l'obj request
@@ -287,31 +324,39 @@ public abstract class CrudController<BO> extends HttpServlet
             throws ServletException, IOException
     {
         Map<String, String[]> params = request.getParameterMap();
-
-        Map<String, Object> parameterValues = this.extractParameterValues(params, parameterTypes);
-
         BO bo = null;
         Integer id = null;
-
-        id = this.getBoIdIfSet(params);
-        // si l'id n'est pas null, récupération des infos
-        if (id != null)
+        try
         {
-            bo = this.dao.findById(id);
+
+            Map<String, Object> parameterValues = this.extractParameterValues(params,
+                    parameterTypes);
+
+            id = this.getBoIdIfSet(params);
+            // si l'id n'est pas null, récupération des infos
+            if (id != null)
+            {
+                bo = this.dao.findById(id);
+            }
+
+            bo = this.hydrateBO(parameterValues, bo);
+
+            if ((id == null) || (id == 0))
+            {
+                this.dao.create(bo);
+            }
+            else
+            {
+                this.dao.update(bo);
+            }
+
+            this.listAction(request, response);
         }
-
-        bo = this.hydrateBO(parameterValues, bo);
-
-        if (id == null)
+        catch (WrongDataException | UnknownBusinessObject e)
         {
-            this.dao.create(bo);
+            // affichage de la page d'ajout
+            this.addAction(request, response, (BusinessObject) bo);
         }
-        else
-        {
-            this.dao.update(bo);
-        }
-
-        this.listAction(request, response);
     }
 
 }
