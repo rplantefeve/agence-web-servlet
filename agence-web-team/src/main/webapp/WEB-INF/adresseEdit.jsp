@@ -10,121 +10,49 @@
 <jsp:include page="../include/assets.jsp" />
 </head>
 <body>
-  <%@include file="../include/menu.jsp"%>
-  <%
-      Adresse adresse = (Adresse) request.getAttribute("adresse");
-      /* Tests */
-      Integer idAdd = adresse.getIdAdd();
-      String idAddForm;
-      if (idAdd == 0)
-      {
-          idAddForm = "";
-      }
-      else
-      {
-          idAddForm = idAdd.toString();
-      }
-
-      String adresseAdresse = adresse.getAdresse();
-      String adresseAdresseForm;
-      if (adresseAdresse == null)
-      {
-          adresseAdresseForm = "";
-      }
-      else
-      {
-          adresseAdresseForm = adresseAdresse;
-      }
-
-      String codePostalAdresse = adresse.getCodePostal();
-      String codePostalAdresseForm;
-      if (codePostalAdresse == null)
-      {
-          codePostalAdresseForm = "";
-      }
-      else
-      {
-          codePostalAdresseForm = codePostalAdresse;
-      }
-      String villeAdresse = adresse.getVille();
-      String villeAdresseForm;
-      if (villeAdresse == null)
-      {
-          villeAdresseForm = "";
-      }
-      else
-      {
-          villeAdresseForm = villeAdresse.toString();
-      }
-
-      String paysAdresse = adresse.getPays();
-      String paysAdresseForm;
-      if (paysAdresse == null)
-      {
-          paysAdresseForm = "";
-      }
-      else
-      {
-          paysAdresseForm = paysAdresse.toString();
-      }
-  %>
+  <jsp:include page="../include/menu.jsp" />
   <fieldset>
     <legend>
-      <%
-          if (idAddForm.equals(""))
-          {
-              out.print("Création");
-          }
-          else
-          {
-              out.print("Edition");
-          }
-      %>
+      <c:choose>
+        <c:when test="${ adresse.idAdd == 0 }">Création</c:when>
+        <c:otherwise>Edition</c:otherwise>
+      </c:choose>
       de l'adresse
     </legend>
     <form action="adresse" method="post">
-      <input type="hidden" name="action" value="update" />
+      <input type="hidden" name="action" value="update" /> <input
+        type="hidden" name="id" value="${ adresse.idAdd }"
+      />
       <table>
         <tr>
-          <td>Id</td>
-          <td><input type="text" name="id" value="<%=idAddForm%>"
-            readonly
-            <%if (idAddForm.equals(""))
-            {
-                out.print("disabled");
-            }%>
-          /></td>
-        </tr>
-        <tr>
-          <td>Adresse</td>
+          <td><label>Adresse</label></td>
           <td><input type="text" name="adresse" maxlength="255"
-            value="<%=adresseAdresseForm%>"
+            value="${ adresse.adresse }"
           /></td>
         </tr>
         <tr>
-          <td>Code Postal</td>
-          <td><input type="text" name="codePostal" maxlength="5"
-            value="<%=codePostalAdresseForm%>"
+          <td><label>Code postal</label></td>
+          <td><input type="text" name="codePostal" size="5" maxlength="5"
+            value="${ adresse.codePostal }"
           /></td>
         </tr>
         <tr>
-          <td>Ville</td>
+          <td><label>Ville</label></td>
           <td><input type="text" name="ville" maxlength="163"
-            value="<%=villeAdresseForm%>"
+            value="${ adresse.ville }"
           /></td>
         </tr>
         <tr>
-          <td>Pays</td>
+          <td><label>Pays</label></td>
           <td><input type="text" name="pays" maxlength="31"
-            value="<%=paysAdresseForm%>"
+            value="${ adresse.pays }"
           /></td>
         </tr>
         <tr>
-          <td colspan="2"><input type="submit" value="Valider" /></td>
+          <td colspan="2"><button class="valider" type="submit">Valider</button></td>
         </tr>
       </table>
     </form>
   </fieldset>
-
 </body>
 </html>
