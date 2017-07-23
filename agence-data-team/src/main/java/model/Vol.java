@@ -3,18 +3,38 @@ package model;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ajc
  */
 public class Vol implements BusinessObject
 {
+    public static final Map<String, Object> parameterTypes;
+    /**
+     * Initialisation de la HashMap (elle doit se faire en static, une seule
+     * fois)
+     */
+    static
+    {
+        /*
+         * Ce genre de chose pourrait être amélioré avec l'API Reflection
+         * http://docs.oracle.com/javase/6/docs/technotes/guides/reflection/
+         * index.html
+         */
+        parameterTypes = new HashMap<>();
+        parameterTypes.put("dateArrivee", Date.class);
+        parameterTypes.put("dateDepart", Date.class);
+        parameterTypes.put("heureArrivee", Time.class);
+        parameterTypes.put("heureDepart", Time.class);
+    }
 
     private Aeroport     aeroportArrivee;
     private Aeroport     aeroportDepart;
     /**
-     * date d'arrivé du vol
+     * date d'arrivée du vol
      */
     private Date         dateArrivee;
     /**

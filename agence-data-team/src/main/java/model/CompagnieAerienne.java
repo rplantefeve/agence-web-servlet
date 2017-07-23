@@ -1,7 +1,25 @@
 package model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CompagnieAerienne implements BusinessObject
 {
+    public static Map<String, Object> parameterTypes;
+    /**
+     * Initialisation de la HashMap (elle doit se faire en static, une seule
+     * fois)
+     */
+    static
+    {
+        /*
+         * Ce genre de chose pourrait être amélioré avec l'API Reflection
+         * http://docs.oracle.com/javase/6/docs/technotes/guides/reflection/
+         * index.html
+         */
+        parameterTypes = new HashMap<>();
+        parameterTypes.put("nom", String.class);
+    }
 
     /**
      * Id de la compagnie aérienne

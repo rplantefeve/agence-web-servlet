@@ -4,25 +4,43 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ajc
  */
 public class Client implements BusinessObject
 {
+    public static Map<String, Object> parameterTypes;
+    /**
+     * Initialisation de la HashMap (elle doit se faire en static, une seule
+     * fois)
+     */
+    static
+    {
+        /*
+         * Ce genre de chose pourrait être amélioré avec l'API Reflection
+         * http://docs.oracle.com/javase/6/docs/technotes/guides/reflection/
+         * index.html
+         */
+        parameterTypes = new HashMap<>();
+        parameterTypes.put("email", String.class);
+        parameterTypes.put("nom", String.class);
+        parameterTypes.put("numeroFax", String.class);
+        parameterTypes.put("numeroTel", String.class);
+        parameterTypes.put("prenom", String.class);
+        parameterTypes.put("siret", String.class);
+    }
 
     private Adresse           adresse;
     private String            email;
-    /**
-     * 
-     */
     private int               idCli;
     private List<Reservation> ListReservations;
     private Login             Log;
     private String            nom;
     private String            numeroFax;
-
     private String            numeroTel;
     private String            prenom;
     private String            siret;

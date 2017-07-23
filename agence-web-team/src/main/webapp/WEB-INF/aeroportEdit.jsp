@@ -8,8 +8,6 @@
 <title>Edition de l'aéroport</title>
 </head>
 <body>
-
-
   <%
       model.Aeroport aeroport = (model.Aeroport) request.getAttribute("aeroport");
       /* Tests */
@@ -54,7 +52,7 @@
       <table>
         <tr>
           <td>Id</td>
-          <td><input type="text" name="idAero" readonly
+          <td><input type="text" name="id" readonly
             value="<%=idAeroForm%>"
             <%if (idAeroForm.equals(""))
             {
