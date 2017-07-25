@@ -7,9 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Edition des passagers</title>
+<jsp:include page="../include/assets.jsp" />
 </head>
 <body>
-
+  <%@include file="../include/menu.jsp"%>
   <%
       model.Passager passager = (model.Passager) request.getAttribute("passager");
       /* Tests */

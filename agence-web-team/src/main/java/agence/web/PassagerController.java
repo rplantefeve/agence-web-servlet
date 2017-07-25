@@ -27,17 +27,17 @@ public class PassagerController extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        // on teste si le parametre action est present dasn l'URL
+        // on teste si le parametre action est present dans l'URL
         String action = request.getParameter("action") != null ? request.getParameter("action")
                 : "list";
-        // si l'action demandé par le user est la liste des eleves
+        // si l'action demandé par le user est la liste des BOs
         if (action.equals("list"))
-        { // je recupere la liste des eleves
+        { // je recupere la liste des BOs
             List<Passager> passagers = this.passagerDao.findAll();
             // je la charge dans l'objet request
             request.setAttribute("passagers", passagers);
-            // je dispache la requete vers la page elevesjsp
-            RequestDispatcher rd = request.getRequestDispatcher("passagers.jsp");
+            // je dispache la requete vers la page BOs.jsp
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/passagers.jsp");
             // le ctrl fait suivre la requete et la reponse à la jsp
             rd.forward(request, response);
         }
@@ -45,7 +45,7 @@ public class PassagerController extends HttpServlet
         {
             request.setAttribute("passager", new Passager());
 
-            RequestDispatcher rd = request.getRequestDispatcher("passagerEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/passagerEdit.jsp");
 
             rd.forward(request, response);
         }
@@ -57,7 +57,7 @@ public class PassagerController extends HttpServlet
 
             request.setAttribute("passager", passager);
 
-            RequestDispatcher rd = request.getRequestDispatcher("passagerEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/passagerEdit.jsp");
 
             rd.forward(request, response);
 
@@ -111,7 +111,7 @@ public class PassagerController extends HttpServlet
 
             request.setAttribute("passagers", this.passagerDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("passagers.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/passagers.jsp");
 
             rd.forward(request, response);
 
@@ -126,7 +126,7 @@ public class PassagerController extends HttpServlet
 
             request.setAttribute("passagers", this.passagerDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("passagers.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/passagers.jsp");
 
             rd.forward(request, response);
         }

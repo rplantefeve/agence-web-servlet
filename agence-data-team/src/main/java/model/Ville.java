@@ -1,7 +1,25 @@
 package model;
 
-public class Ville
+import java.util.HashMap;
+import java.util.Map;
+
+public class Ville implements BusinessObject
 {
+    public static final Map<String, Object> parameterTypes;
+    /**
+     * Initialisation de la HashMap (elle doit se faire en static, une seule
+     * fois)
+     */
+    static
+    {
+        /*
+         * Ce genre de chose pourrait être amélioré avec l'API Reflection
+         * http://docs.oracle.com/javase/6/docs/technotes/guides/reflection/
+         * index.html
+         */
+        parameterTypes = new HashMap<>();
+        parameterTypes.put("nom", String.class);
+    }
 
     /**
      * Id de la ville
@@ -26,7 +44,12 @@ public class Ville
 
     public int getIdVil()
     {
-        return idVil;
+        return this.idVil;
+    }
+
+    public String getNom()
+    {
+        return this.nom;
     }
 
     public void setIdVil(int idVil)
@@ -34,16 +57,12 @@ public class Ville
         this.idVil = idVil;
     }
 
-    public String getNom()
-    {
-        return nom;
-    }
-
     public void setNom(String nom)
     {
         this.nom = nom;
     }
 
+    @Override
     public String toString()
     {
         String reponse = "La Ville : " + this.nom;

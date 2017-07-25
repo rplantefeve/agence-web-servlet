@@ -3,47 +3,67 @@ package model;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ajc
  */
-public class Vol
+public class Vol implements BusinessObject
 {
-
+    public static final Map<String, Object> parameterTypes;
     /**
-     * id du vol
+     * Initialisation de la HashMap (elle doit se faire en static, une seule
+     * fois)
      */
-    private int          idVol;
+    static
+    {
+        /*
+         * Ce genre de chose pourrait être amélioré avec l'API Reflection
+         * http://docs.oracle.com/javase/6/docs/technotes/guides/reflection/
+         * index.html
+         */
+        parameterTypes = new HashMap<>();
+        parameterTypes.put("dateArrivee", Date.class);
+        parameterTypes.put("dateDepart", Date.class);
+        parameterTypes.put("heureArrivee", Time.class);
+        parameterTypes.put("heureDepart", Time.class);
+    }
+
+    private Aeroport     aeroportArrivee;
+    private Aeroport     aeroportDepart;
+    /**
+     * date d'arrivée du vol
+     */
+    private Date         dateArrivee;
     /**
      * date de départ du vol
      */
     private Date         dateDepart;
     /**
-     * date d'arrivé du vol
+     * liste d'escales par lesquelles on peut passer
      */
-    private Date         dateArrivee;
+    private List<Escale> escales;
+    /**
+     * heure d'arrivée du vol
+     */
+    private Time         heureArrivee;
     /**
      * heure départ du vol
      */
     private Time         heureDepart;
     /**
-     * heure d'arrivée du vol
+     * id du vol
      */
-    private Time         heureArrivee;
-    private Aeroport     aeroportDepart;
-    private Aeroport     aeroportArrivee;
-    /**
-     * liste d'escales par lesquelles on peut passer
-     */
-    private List<Escale> escales;
+    private int          idVol;
 
     /**
      * Constructeur de vol
      */
     public Vol()
     {
-        this.escales = new ArrayList<Escale>();
+        this.escales = new ArrayList<>();
     }
 
     /**
@@ -55,47 +75,47 @@ public class Vol
     public Vol(int idVol)
     {
         this.idVol = idVol;
-        this.escales = new ArrayList<Escale>();
+        this.escales = new ArrayList<>();
     }
 
     public Aeroport getAeroportArrivee()
     {
-        return aeroportArrivee;
+        return this.aeroportArrivee;
     }
 
     public Aeroport getAeroportDepart()
     {
-        return aeroportDepart;
+        return this.aeroportDepart;
     }
 
     public Date getDateArrivee()
     {
-        return dateArrivee;
+        return this.dateArrivee;
     }
 
     public Date getDateDepart()
     {
-        return dateDepart;
+        return this.dateDepart;
     }
 
     public List<Escale> getEscales()
     {
-        return escales;
+        return this.escales;
     }
 
     public Time getHeureArrivee()
     {
-        return heureArrivee;
+        return this.heureArrivee;
     }
 
     public Time getHeureDepart()
     {
-        return heureDepart;
+        return this.heureDepart;
     }
 
     public int getIdVol()
     {
-        return idVol;
+        return this.idVol;
     }
 
     public void setAeroportArrivee(Aeroport aeroportArrivee)
@@ -138,13 +158,14 @@ public class Vol
         this.idVol = idVol;
     }
 
+    @Override
     public String toString()
     {
         String reponse = "Le vol  de : " + this.aeroportDepart.getNom() + " qui part le "
                 + this.dateDepart + " à " + this.heureDepart + "\n Arrivera à "
                 + this.aeroportArrivee.getNom() + " à " + this.heureArrivee
                 + "\nIl fera des escales à : ";
-        for (int i = 0; i < escales.size(); i++)
+        for (int i = 0; i < this.escales.size(); i++)
         {
             reponse += "\n" + this.escales.get(i).getAeoroport().getNom() + " le "
                     + this.escales.get(i).getDateArrivee() + " à "

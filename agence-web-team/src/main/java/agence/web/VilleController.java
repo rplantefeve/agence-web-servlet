@@ -23,26 +23,26 @@ public class VilleController extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        // on teste si le param�tre action est pr�sent dans l'url
+        // on teste si le paramètre action est présent dans l'url
         String action = request.getParameter("action") != null ? request.getParameter("action")
                 : "list";
-        // si l'action demand�e par le user est la liste des �l�ves,
+        // si l'action demandée par le user est la liste des BO,
         if (action.equals("list"))
         {
-            // je r�cup�re la liste des �l�ves
+            // je récupère la liste des BO
             List<Ville> villes = this.villeDao.findAll();
             // je la charge dans l'objet request
             request.setAttribute("ville", villes);
-            // je pr�pare le dispatche de la requ�te vers la page eleves.jsp
-            RequestDispatcher rd = request.getRequestDispatcher("villes.jsp");
-            // le controller fait suivre la requ�te et la r�ponse � la jsp
+            // je prépare le dispatche de la requête vers la page BOs.jsp
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/villes.jsp");
+            // le controller fait suivre la requête et la réponse à la jsp
             rd.forward(request, response);
         }
         else if (action.equals("add"))
         {
             request.setAttribute("ville", new Ville());
 
-            RequestDispatcher rd = request.getRequestDispatcher("villeEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/villeEdit.jsp");
 
             rd.forward(request, response);
         }
@@ -54,41 +54,22 @@ public class VilleController extends HttpServlet
 
             request.setAttribute("ville", ville);
 
-            RequestDispatcher rd = request.getRequestDispatcher("villeEdit.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/villeEdit.jsp");
 
             rd.forward(request, response);
 
         }
         else if (action.equals("update"))
         {
-            // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String idForm = request.getParameter("id");
 
-            // Date dtNais = null;
             Integer id = null;
             String nom = "";
-            // String prenom = "";
-            // float note = 0.0f;
-            // Titre titre = null;
-
-            // try
-            // {
-            // si l'id r�cup�r� est non null, on parse
             if (idForm != null)
             {
                 id = Integer.parseInt(idForm);
             }
             nom = request.getParameter("nom");
-            // prenom = request.getParameter("prenom");
-            // note = Float.parseFloat(request.getParameter("note"));
-            // dtNais = sdf.parse(request.getParameter("dtNais"));
-            // titre= titre.permissiveValueOf(request.getParameter("titre"));
-            // }
-
-            // catch (ParseException e)
-            // {
-            // e.printStackTrace();
-            // }
 
             Ville ville = null;
 
@@ -102,10 +83,6 @@ public class VilleController extends HttpServlet
             }
 
             ville.setNom(nom);
-            // eleve.setPrenom(prenom);
-            // eleve.setDtNais(dtNais);
-            // eleve.setNote(note);
-            // eleve.setTitre(titre);
 
             if (id == null)
             {
@@ -118,7 +95,7 @@ public class VilleController extends HttpServlet
 
             request.setAttribute("ville", this.villeDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("villes.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/villes.jsp");
 
             rd.forward(request, response);
 
@@ -133,7 +110,7 @@ public class VilleController extends HttpServlet
 
             request.setAttribute("ville", this.villeDao.findAll());
 
-            RequestDispatcher rd = request.getRequestDispatcher("villes.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/villes.jsp");
 
             rd.forward(request, response);
         }

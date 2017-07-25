@@ -8,11 +8,7 @@ import model.Adresse;
 /**
  * @author ajc
  */
-public interface AdresseDao extends Dao<Adresse, Integer>
+public interface AdresseDao extends Dao<Adresse>
 {
 
-    /**
-     * 
-     */
-    public Adresse findById(Integer idAdd);
 }

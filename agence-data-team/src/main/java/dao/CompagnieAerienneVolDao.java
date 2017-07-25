@@ -2,9 +2,7 @@ package dao;
 
 import model.CompagnieAerienneVol;
 
-public interface CompagnieAerienneVolDao extends Dao<CompagnieAerienneVol, Integer>
+public interface CompagnieAerienneVolDao extends Dao<CompagnieAerienneVol>
 {
-
-    CompagnieAerienneVol findById(Integer id);
 
 }
